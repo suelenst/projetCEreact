@@ -4,7 +4,14 @@
  * and open the template in the editor.
  */
 
-import React from 'react'
+/*
+ * 
+ 
+
+ */
+import React from 'react';
+
+
 
 export default class Exemplo extends React.Component {
     
