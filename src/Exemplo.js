@@ -6,7 +6,7 @@
 
 import React from 'react'
 
-export default class ProdutoPagina extends React.Component {
+export default class Exemplo extends React.Component {
     
     constructor(props){
         super(props);
