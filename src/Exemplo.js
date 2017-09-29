@@ -22,26 +22,7 @@ export default class Exemplo extends React.Component {
         };
         
         
-         fetch("http://localhost:8080/produtos/", {method:"GET"})
-                .then((resultado)=>{ 
-                    if(resultado.ok) {
-                        // retorno ok
-                        resultado.json().then(
-                              (lista)=>{
-                                  console.log(lista);
-                              }
-                            );
-                
-                    } else {
-                        // tratar o erro 
-                        console.log("Erro na excecução");
-                        
-                        
-                    }
-                
-                }  
-                
-                );
+        
         
     }
     

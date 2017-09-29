@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-import React from 'react'
-
+import React from 'react';
+import ProdutoServico from './ProdutoServico';
+ 
 export default class ProdutoPagina extends React.Component {
     
     constructor(props){
@@ -13,6 +14,15 @@ export default class ProdutoPagina extends React.Component {
         this.state={
             nome:props.nome
         };
+        
+        this.produtoServico = new ProdutoServico();
+        this.produtoServico.listarPaginado(0,
+            (resultado)=>{console.log(resultado);},
+            (erro)=>{
+                console.log("Erro:");
+                console.log(erro);
+            }
+            );
     }
     
     setNome(nomeParm){
