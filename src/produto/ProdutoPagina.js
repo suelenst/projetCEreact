@@ -6,18 +6,34 @@
 
 import React from 'react';
 import ProdutoServico from './ProdutoServico';
+import ProdutoLista from './ProdutoLista';
  
 export default class ProdutoPagina extends React.Component {
     
     constructor(props){
         super(props);
+        
         this.state={
-            nome:props.nome
-        };
+            pagina:{}
+        }
         
         this.produtoServico = new ProdutoServico();
-        this.produtoServico.listarPaginado(0,
-            (resultado)=>{console.log(resultado);},
+        this.mudarPagina(0);
+       
+    }
+    
+    setPagina(paginaResultado){
+        this.setState({
+            pagina:paginaResultado
+        });
+    }
+    
+    mudarPagina(numero) {
+         this.produtoServico.listarPaginado(numero,
+            (resultado)=>{
+                console.log(resultado);
+                this.setPagina(resultado);
+            },
             (erro)=>{
                 console.log("Erro:");
                 console.log(erro);
@@ -25,23 +41,14 @@ export default class ProdutoPagina extends React.Component {
             );
     }
     
-    setNome(nomeParm){
-        this.setState({
-            nome:nomeParm
-        });
-    }
-    
     render(){
-        //React.createElement('span', null, "Aqui !" )
-        return <div style={{color:"red"}}>
-            <input value={this.state.nome} 
-            onChange={(evento)=>this.setNome(evento.target.value)}/>
-            {this.state.nome.length}
-                        <br/>Olá, {this.state.nome?this.state.nome:"pessoa"}!
-                        <br/>{this.state.nome}
-                        <br/>{this.state.nome}
-                        <br/>{this.state.nome}
-                        <br/>{this.state.nome}</div>;
+        
+        return <ProdutoLista
+            apagar={(produto)=>console.log(produto)}
+            editar={(produto)=>console.log(produto)}
+            mudaPagina={(numero)=> this.mudarPagina(numero)}
+            pagina={this.state.pagina} 
+        />;
         
     }
     
