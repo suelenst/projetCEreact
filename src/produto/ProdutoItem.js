@@ -11,9 +11,13 @@ export default class ProdutoItem extends React.Component {
         constructor(props){
             super(props);
             this.state={
-                produto:{
-                    
-                }}
+                produto:this.props.produto
+            }
+            
+        }
+        
+        componentWillReceiveProps(proximoEstado){
+            this.setState({produto:proximoEstado.produto});
             
         }
         
@@ -42,7 +46,12 @@ export default class ProdutoItem extends React.Component {
         confirmar(){
             if(this.state.produto.nome&&
                   this.state.produto.valor){
-                    this.props.inserir(this.state.produto);
+                    if(this.state.produto.id){
+                        this.props.editar(this.state.produto.id, this.state.produto);
+                    }
+                    else {
+                        this.props.inserir(this.state.produto);
+                        }
                     } else {
                         alert("Preencha todos os campos!");
                     }

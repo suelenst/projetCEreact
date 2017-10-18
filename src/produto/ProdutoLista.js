@@ -1,4 +1,6 @@
 import React from "react";
+import Icon from 'material-ui/Icon';
+import IconButton from 'material-ui/IconButton';
 
 export default class ProdutoLista extends React.Component {
 
@@ -22,18 +24,32 @@ export default class ProdutoLista extends React.Component {
     botoesProduto(produto) {
         let botoes = [];
         if (this.props.editar) {
-            let botao = <button onClick={(evento) => {
+            let botao = <IconButton onClick={(evento) => {
+                                this.props.editar(produto);
+            }} color="primary">
+        <Icon>create</Icon>
+      </IconButton>
+                            /*
+                            <button onClick={(evento) => {
                                 this.props.editar(produto);
             }}>
-                Editar</button>;
+                Editar</button>;*/;
                 botoes.push(botao);
         }
 
         if (this.props.apagar) {
-            let botao = <button onClick={(evento) => {
+            let botao = 
+                    <IconButton onClick={(evento) => {
+                                this.props.apagar(produto);
+            }} color="accent">
+        <Icon>delete</Icon>
+      </IconButton>;
+                    /*            
+                                
+                                <button onClick={(evento) => {
                                 this.props.apagar(produto);
             }}>
-                Apagar</button>;
+                Apagar</button>;*/
                 botoes.push(botao);
         }
         return botoes;

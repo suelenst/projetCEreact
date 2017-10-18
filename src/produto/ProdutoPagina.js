@@ -56,13 +56,25 @@ export default class ProdutoPagina extends React.Component {
                 },
                 (erro)=>console.log(erro));
                 }}
-            editar={(produto) => console.log(produto)}
+            editar={(produto) => {this.setState({produto:produto});}  }
             mudaPagina={(numero) => this.mudarPagina(numero)}
             pagina={this.state.pagina} 
             />
             <ProdutoItem 
                 inserir ={(produto)=>{ 
                     this.produtoServico.inserir(produto, 
+                            (item)=>{
+                                alert("Item cadastrado com sucesso!");
+                                this.mudarPagina(this.paginaAtual);
+                            },
+                            (erro)=>{
+                                console.log("Erro!");
+                                console.log(erro);
+                                }
+                            );
+                    }}
+                editar = {(id,produto)=>{ 
+                    this.produtoServico.editar(id, produto, 
                             (item)=>{
                                 alert("Item cadastrado com sucesso!");
                                 this.mudarPagina(this.paginaAtual);

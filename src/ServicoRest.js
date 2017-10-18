@@ -45,6 +45,27 @@ export default class ServicoRest {
         });
     }
 
+    editar(id, item, sucesso, erro) {
+        console.log(item);
+        fetch(`${this.url}/${id}`, {
+            method: "PUT",
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(item)
+        }).then((resultado) => {
+            if (resultado.ok) {
+                sucesso();
+            } else {
+                resultado.json().then(
+                        (resultadoErro) => erro(resultadoErro)
+                )
+            }
+
+        });
+    }
+
+
     listarPaginado(pagina, sucesso, erro) {
         /* 
          this.listarPaginado(2,
