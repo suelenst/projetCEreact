@@ -2,6 +2,17 @@ import React from "react";
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 
+import Table, {
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TablePagination,
+  TableRow
+} from 'material-ui/Table';
+
+
+
 export default class ProdutoLista extends React.Component {
 
     setPagina(numero) {
@@ -61,26 +72,36 @@ export default class ProdutoLista extends React.Component {
             return <div>Vazio!</div>;
         } else {
 
-            return <table >
-    <thead>
-        <tr>
-            <th>Nome</th><th>Valor</th>
-        </tr>
-    </thead>
-    <tbody>
+            return <Table >
+    <TableHead>
+        <TableRow>
+            <TableCell>Nome</TableCell><TableCell  >Valor</TableCell>
+        </TableRow>
+    </TableHead>
+    <TableBody>
         {this.props.pagina.content.map((produto) => {
-                                return <tr key={produto.id}>
-                            <td>{produto.nome}</td>
-                            <td>{produto.valor}</td>
-                            <td>
-                                {this.botoesProduto(produto)}</td>
-                        </tr>;
+                                return <TableRow hover="true" key={produto.id}>
+                            <TableCell>{produto.nome}</TableCell>
+                            <TableCell numeric="true">{produto.valor}</TableCell>
+                            <TableCell>
+                                {this.botoesProduto(produto)}</TableCell>
+                        </TableRow>;
         })}        
-    </tbody>
-    <tfoot>
-        <tr><td colSpan='3'>{this.botoesPagina()}</td></tr>
-    </tfoot>
-</table>;
+    </TableBody>
+    <TableFooter>
+        <TableRow>
+        <TablePagination
+                  count={this.props.pagina.totalElements}
+                  rowsPerPage={this.props.pagina.size}
+                  page={this.props.pagina.number}
+                  onChangePage={(evento,pagina)=>{this.setPagina(pagina);}}
+                  onChangeRowsPerPage={()=>{}}
+                  rowsPerPageOptions={[this.props.pagina.size]}
+                  labelRowsPerPage=""
+                />
+        </TableRow>                        
+    </TableFooter>
+</Table>;
         }
     }
 }
