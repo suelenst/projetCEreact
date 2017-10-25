@@ -11,6 +11,7 @@ import ProdutoItem from './ProdutoItem';
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
 import Button from "material-ui/Button";
+import Icon from 'material-ui/Icon';
 
 export default class ProdutoPagina extends React.Component {
 
@@ -58,11 +59,9 @@ export default class ProdutoPagina extends React.Component {
     render() {
 
         return  <Grid container  >
-            <Grid item xs={0}  sm={1} md={3} />
-            <Grid item xs={12} sm={10} md={6}>
+            <Grid item sm={0}  md={1} />
+            <Grid item sm={12} md={10} >
             <Paper style={{padding:10}}>
-        
-            
             
             <ProdutoLista
             apagar={(produto) => {

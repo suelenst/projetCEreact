@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ProdutoPagina from './produto/ProdutoPagina';
+import Principal from './Principal';
 
 class App extends Component {
   render() {
+      return <Principal/>;
+      /*
     return (
       <div className="App">
         <header className="App-header">
@@ -15,7 +18,7 @@ class App extends Component {
         <ProdutoPagina nome="Carlos" />
         </p>
       </div>
-    );
+    );*/
   }
 }
 
