@@ -83,18 +83,26 @@ function Principal(props) {
         >
           <div className={classes.drawerHeader} />
 <List>
+<Link to="produto"  style={{ textDecoration: 'none' }}>
         <ListItem button>
+        
           <ListItemIcon>
             <Icon>note_add</Icon>
           </ListItemIcon>
           <ListItemText primary="Produtos" />
+
         </ListItem>
-        <ListItem button>
+                  </Link>
+        <Link to="carrinho" style={{ textDecoration: 'none' }}>
+            <ListItem button>
+        
           <ListItemIcon>
             <Icon>shopping_cart</Icon>
           </ListItemIcon>
-          <ListItemText primary="Carinho" />
+          <ListItemText primary="Carrinho" />
+          
         </ListItem>
+        </Link>
       </List>
       <Divider />
       <List>
