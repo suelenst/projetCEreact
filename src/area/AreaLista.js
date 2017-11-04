@@ -2,6 +2,8 @@ import React from "react";
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 
+
+
 import Table, {
   TableBody,
   TableCell,
@@ -12,8 +14,7 @@ import Table, {
 } from 'material-ui/Table';
 
 
-
-export default class ProdutoLista extends React.Component {
+export default class AreaLista extends React.Component {
 
     setPagina(numero) {
         this.props.mudaPagina(numero);
@@ -32,17 +33,17 @@ export default class ProdutoLista extends React.Component {
         return botoes;
     }
 
-    botoesProduto(produto) {
+    botoesArea(area) {
         let botoes = [];
         if (this.props.editar) {
             let botao = <IconButton onClick={(evento) => {
-                                this.props.editar(produto);
-            }} color="primary">
+                                this.props.editar(area);
+            }} color="secondary">
         <Icon>create</Icon>
       </IconButton>
                             /*
                             <button onClick={(evento) => {
-                                this.props.editar(produto);
+                                this.props.editar(area);
             }}>
                 Editar</button>;*/;
                 botoes.push(botao);
@@ -51,14 +52,14 @@ export default class ProdutoLista extends React.Component {
         if (this.props.apagar) {
             let botao = 
                     <IconButton onClick={(evento) => {
-                                this.props.apagar(produto);
-            }} color="accent">
+                                this.props.apagar(area);
+            }} color="primary">
         <Icon>delete</Icon>
       </IconButton>;
                     /*            
                                 
                                 <button onClick={(evento) => {
-                                this.props.apagar(produto);
+                                this.props.apagar(area);
             }}>
                 Apagar</button>;*/
                 botoes.push(botao);
@@ -75,16 +76,16 @@ export default class ProdutoLista extends React.Component {
             return <Table >
     <TableHead>
         <TableRow>
-            <TableCell>Nome</TableCell><TableCell  >Valor</TableCell>
+            <TableCell>Nome</TableCell>
         </TableRow>
     </TableHead>
     <TableBody>
-        {this.props.pagina.content.map((produto) => {
-                                return <TableRow hover="true" key={produto.id}>
-                            <TableCell>{produto.nome}</TableCell>
-                            <TableCell numeric="true">{produto.valor}</TableCell>
+        {this.props.pagina.content.map((area) => {
+                                return <TableRow hover="true" key={area.id}>
+                            <TableCell>{area.nome}</TableCell>
+                            
                             <TableCell>
-                                {this.botoesProduto(produto)}</TableCell>
+                                {this.botoesArea(area)}</TableCell>
                         </TableRow>;
         })}        
     </TableBody>

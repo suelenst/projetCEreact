@@ -14,18 +14,18 @@ import Dialog, {
 import Button  from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 
-export default class ProdutoItem extends React.Component {
+export default class AreaItem extends React.Component {
         
         constructor(props){
             super(props);
             this.state={
-                produto:this.props.produto
+                area:this.props.area
             }
             
         }
         
         componentWillReceiveProps(proximoEstado){
-            this.setState({produto:proximoEstado.produto});
+            this.setState({area:proximoEstado.area});
             
         }
         
@@ -33,32 +33,21 @@ export default class ProdutoItem extends React.Component {
             this.setState(
                     (anterior)=>
                             {
-                            anterior.produto.nome=valor;
+                            anterior.area.nome=valor;
                             return anterior;
                             }
                     );
             
         }
         
-        setValor(valor) {
-            this.setState(
-                    (anterior) =>{
-                        anterior.produto.valor=valor;
-                        return valor;
-                    }
-                    
-                    );
-            
-        }
         
         confirmar(){
-            if(this.state.produto.nome&&
-                  this.state.produto.valor){
-                    if(this.state.produto.id){
-                        this.props.editar(this.state.produto.id, this.state.produto);
+            if(this.state.area.nome){
+                    if(this.state.area.id){
+                        this.props.editar(this.state.area.id, this.state.area);
                     }
                     else {
-                        this.props.inserir(this.state.produto);
+                        this.props.inserir(this.state.area);
                         }
                     } else {
                         alert("Preencha todos os campos!");
@@ -71,16 +60,13 @@ export default class ProdutoItem extends React.Component {
         
         render(){
             return <Dialog open={this.props.abrir}>
-            <DialogTitle>{this.state.produto.id?`Editar item ${this.state.produto.nome}`:"Novo Produto"}</DialogTitle>
+            <DialogTitle>{this.state.area.id?`Editar item ${this.state.area.nome}`:"Nova Area de "}</DialogTitle>
             <DialogContent>
             
             <TextField label="Nome"
-                value={this.state.produto.nome}
+                value={this.state.area.nome}
                 onChange={(evento)=>this.setNome(evento.target.value)}  /><br/><br/>
-            <TextField type="number" label="Valor"
-                value={this.state.produto.valor}
-                onChange={(evento)=>this.setValor(evento.target.value)}
-            /><br/><br/>
+
             </DialogContent>
             
              <DialogActions>

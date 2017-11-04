@@ -6,9 +6,9 @@
 
 import ServicoRest from "../ServicoRest";
 
-export default class ProdutoServico extends  ServicoRest {
+export default class AreaServico extends  ServicoRest {
         constructor(){
-            super("/produtos/");
+            super("/areas/");
         }
         
 }

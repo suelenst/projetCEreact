@@ -127,7 +127,7 @@ my-app/
   package.json
   public/
     index.html
-    favicon.ico
+    icon.png
   src/
     App.css
     App.js
@@ -688,7 +688,7 @@ If you put a file into the `public` folder, it will **not** be processed by Webp
 Inside `index.html`, you can use it like this:
 
 ```html
-<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+<link rel="shortcut icon" href="%PUBLIC_URL%/icon.png">
 ```
 
 Only files inside the `public` folder will be accessible by `%PUBLIC_URL%` prefix. If you need to use a file from `src` or `node_modules`, you’ll have to copy it there to explicitly specify your intention to make this file a part of the build.
@@ -1247,7 +1247,7 @@ Different projects choose different testing tradeoffs based on how often compone
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -1276,7 +1276,7 @@ You can write a smoke test with it too:
 ```js
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+
 
 it('renders without crashing', () => {
   shallow(<App />);
@@ -1292,7 +1292,7 @@ Here is an example from Enzyme documentation that asserts specific output, rewri
 ```js
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+
 
 it('renders welcome message', () => {
   const wrapper = shallow(<App />);

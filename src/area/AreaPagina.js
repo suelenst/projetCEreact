@@ -1,38 +1,32 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import React from 'react';
-import ProdutoServico from './ProdutoServico';
-import ProdutoLista from './ProdutoLista';
-import ProdutoItem from './ProdutoItem';
+import AreaServico from './AreaServico';
+import AreaLista from './AreaLista';
+import AreaItem from './AreaItem';
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
 import Button from "material-ui/Button";
 import Icon from 'material-ui/Icon';
 
-export default class ProdutoPagina extends React.Component {
+export default class AreaPagina extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             pagina: {},
-            exibirProdutoItem:false,
-            produto:{nome:"teste"}
+            exibirAreaItem:false,
+            area:{nome:"teste"}
         }
 
-        this.produtoServico = new ProdutoServico();
+        this.areaServico = new AreaServico();
         this.mudarPagina(0);
 
     }
 
     novoItem(){
         this.setState({
-            exibirProdutoItem:true,
-            produto:{}
+            exibirAreaItem:true,
+            area:{}
         });
     }
 
@@ -44,7 +38,7 @@ export default class ProdutoPagina extends React.Component {
 
     mudarPagina(numero) {
         this.paginaAtual=numero;
-        this.produtoServico.listarPaginado(numero,
+        this.areaServico.listarPaginado(numero,
                 (resultado) => {
             console.log(resultado);
             this.setPagina(resultado);
@@ -63,9 +57,9 @@ export default class ProdutoPagina extends React.Component {
             <Grid item sm={12} md={10} >
             <Paper style={{padding:10}}>
             
-            <ProdutoLista
-            apagar={(produto) => {
-                this.produtoServico.apagar(produto.id,
+            <AreaLista
+            apagar={(area) => {
+                this.areaServico.apagar(area.id,
                 ()=>{
                     alert("Apagado com sucesso!!!");
                     this.mudarPagina(this.paginaAtual);
@@ -73,18 +67,18 @@ export default class ProdutoPagina extends React.Component {
                 },
                 (erro)=>console.log(erro));
                 }}
-            editar={(produto) => {this.setState({exibirProdutoItem:true, produto:produto});}  }
+            editar={(area) => {this.setState({exibirAreaItem:true, area:area});}  }
             mudaPagina={(numero) => this.mudarPagina(numero)}
             pagina={this.state.pagina} 
             />
-            <ProdutoItem 
-                cancelar={()=>{this.setState({exibirProdutoItem:false});}}
-                abrir={this.state.exibirProdutoItem}
-                inserir ={(produto)=>{ 
-                    this.produtoServico.inserir(produto, 
+            <AreaItem 
+                cancelar={()=>{this.setState({exibirAreaItem:false});}}
+                abrir={this.state.exibirAreaItem}
+                inserir ={(area)=>{ 
+                    this.areaServico.inserir(area, 
                             (item)=>{
                                 alert("Item cadastrado com sucesso!");
-                                this.setState({exibirProdutoItem:false});
+                                this.setState({exibirAreaItem:false});
                                 this.mudarPagina(this.paginaAtual);
                             },
                             (erro)=>{
@@ -93,11 +87,11 @@ export default class ProdutoPagina extends React.Component {
                                 }
                             );
                     }}
-                editar = {(id,produto)=>{ 
-                    this.produtoServico.editar(id, produto, 
+                editar = {(id,area)=>{ 
+                    this.areaServico.editar(id, area, 
                             (item)=>{
                                 alert("Item cadastrado com sucesso!");
-                                this.setState({exibirProdutoItem:false});
+                                this.setState({exibirAreaItem:false});
                                 this.mudarPagina(this.paginaAtual);
                             },
                             (erro)=>{
@@ -106,7 +100,7 @@ export default class ProdutoPagina extends React.Component {
                                 }
                             );
                     }}
-                produto={this.state.produto} />
+                area={this.state.area} />
             <Button raised color="primary" onClick={(evento)=>this.novoItem()} >
         Adicionar Item
       </Button>
