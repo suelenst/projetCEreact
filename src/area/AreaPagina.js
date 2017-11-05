@@ -14,8 +14,8 @@ export default class AreaPagina extends React.Component {
 
         this.state = {
             pagina: {},
-            exibirAreaItem:false,
-            area:{nome:"teste"}
+            exibirAreaItem: false,
+            area: {nome: "teste"}
         }
 
         this.areaServico = new AreaServico();
@@ -23,10 +23,10 @@ export default class AreaPagina extends React.Component {
 
     }
 
-    novoItem(){
+    novoItem() {
         this.setState({
-            exibirAreaItem:true,
-            area:{}
+            exibirAreaItem: true,
+            area: {}
         });
     }
 
@@ -37,77 +37,79 @@ export default class AreaPagina extends React.Component {
     }
 
     mudarPagina(numero) {
-        this.paginaAtual=numero;
+        this.paginaAtual = numero;
         this.areaServico.listarPaginado(numero,
-                (resultado) => {
-            console.log(resultado);
-            this.setPagina(resultado);
-        },
-                (erro) => {
-            console.log("Erro:");
-            console.log(erro);
-        }
+            (resultado) => {
+                console.log(resultado);
+                this.setPagina(resultado);
+            },
+            (erro) => {
+                console.log("Erro:");
+                console.log(erro);
+            }
         );
     }
 
     render() {
 
-        return  <Grid container  >
-            <Grid item sm={0}  md={1} />
-            <Grid item sm={12} md={10} >
-            <Paper style={{padding:10}}>
-            
-            <AreaLista
-            apagar={(area) => {
-                this.areaServico.apagar(area.id,
-                ()=>{
-                    alert("Apagado com sucesso!!!");
-                    this.mudarPagina(this.paginaAtual);
-                    
-                },
-                (erro)=>console.log(erro));
-                }}
-            editar={(area) => {this.setState({exibirAreaItem:true, area:area});}  }
-            mudaPagina={(numero) => this.mudarPagina(numero)}
-            pagina={this.state.pagina} 
-            />
-            <AreaItem 
-                cancelar={()=>{this.setState({exibirAreaItem:false});}}
-                abrir={this.state.exibirAreaItem}
-                inserir ={(area)=>{ 
-                    this.areaServico.inserir(area, 
-                            (item)=>{
-                                alert("Item cadastrado com sucesso!");
-                                this.setState({exibirAreaItem:false});
-                                this.mudarPagina(this.paginaAtual);
-                            },
-                            (erro)=>{
-                                console.log("Erro!");
-                                console.log(erro);
+        return <Grid container>
+            <Grid item sm={0} md={1}/>
+            <Grid item sm={12} md={10}>
+                <Paper style={{padding: 10}}>
+
+                    <AreaLista
+                        apagar={(area) => {
+                            this.areaServico.apagar(area.id,
+                                () => {
+                                    alert("Apagado com sucesso!!!");
+                                    this.mudarPagina(this.paginaAtual);
+
+                                },
+                                (erro) => console.log(erro));
+                        }}
+                        editar={(area) => {
+                            this.setState({exibirAreaItem: true, area: area});
+                        }  }
+                        mudaPagina={(numero) => this.mudarPagina(numero)}
+                        pagina={this.state.pagina}
+                    />
+                    <AreaItem
+                        cancelar={() => {
+                            this.setState({exibirAreaItem: false});
+                        }}
+                        abrir={this.state.exibirAreaItem}
+                        inserir={(area) => {
+                            this.areaServico.inserir(area,
+                                (item) => {
+                                    alert("Área de interesse cadastrada com sucesso!");
+                                    this.setState({exibirAreaItem: false});
+                                    this.mudarPagina(this.paginaAtual);
+                                },
+                                (erro) => {
+                                    console.log("Erro!");
+                                    console.log(erro);
                                 }
                             );
-                    }}
-                editar = {(id,area)=>{ 
-                    this.areaServico.editar(id, area, 
-                            (item)=>{
-                                alert("Item cadastrado com sucesso!");
-                                this.setState({exibirAreaItem:false});
-                                this.mudarPagina(this.paginaAtual);
-                            },
-                            (erro)=>{
-                                console.log("Erro!");
-                                console.log(erro);
+                        }}
+                        editar={(id, area) => {
+                            this.areaServico.editar(id, area,
+                                (item) => {
+                                    alert("Área de interesse alterada com sucesso!");
+                                    this.setState({exibirAreaItem: false});
+                                    this.mudarPagina(this.paginaAtual);
+                                },
+                                (erro) => {
+                                    console.log("Erro!");
+                                    console.log(erro);
                                 }
                             );
-                    }}
-                area={this.state.area} />
-            <Button raised color="primary" onClick={(evento)=>this.novoItem()} >
-        Adicionar Item
-      </Button>
-            </Paper>
+                        }}
+                        area={this.state.area}/>
+                    <Button raised color="primary" onClick={(evento) => this.novoItem()}>
+                        Adicionar Área de Interesse
+                    </Button>
+                </Paper>
             </Grid>
-            </Grid>;
-
+        </Grid>;
     }
-
 }

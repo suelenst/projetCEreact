@@ -11,18 +11,17 @@ export default class ServicoRest {
     }
 
     apagar(id, sucesso, erro) {
-         fetch(`${this.url}/${id}`,{
-            method:"DELETE"
-        }
-        ).then((resposta)=>{
-           if(resposta.ok) {
-               sucesso();
-           } else {
-               resposta.json().then(erro);              
-           }
-               
-        } );
-        
+        fetch(`${this.url}/${id}`, {
+                method: "DELETE"
+            }
+        ).then((resposta) => {
+            if (resposta.ok) {
+                sucesso();
+            } else {
+                resposta.json().then(erro);
+            }
+        });
+
     }
 
     inserir(item, sucesso, erro) {
@@ -38,7 +37,7 @@ export default class ServicoRest {
                 resultado.json().then(sucesso)
             } else {
                 resultado.json().then(
-                        (resultadoErro) => erro(resultadoErro)
+                    (resultadoErro) => erro(resultadoErro)
                 )
             }
 
@@ -58,7 +57,7 @@ export default class ServicoRest {
                 sucesso();
             } else {
                 resultado.json().then(
-                        (resultadoErro) => erro(resultadoErro)
+                    (resultadoErro) => erro(resultadoErro)
                 )
             }
 
@@ -74,13 +73,13 @@ export default class ServicoRest {
          }, (erro)=>{
          console.log("Deu M!");
          console.log(erro);
-         
+
          }  
-         
+
          );    
          ((teste)=>{console.log(teste)})(
          "carlos"); 
-         
+
          log("carlos ");
          */
 
@@ -90,7 +89,7 @@ export default class ServicoRest {
                 resultado.json().then(sucesso)
             } else {
                 resultado.json().then(
-                        (resultadoErro) => erro(resultadoErro)
+                    (resultadoErro) => erro(resultadoErro)
                 )
             }
         };
