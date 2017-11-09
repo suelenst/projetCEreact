@@ -12,9 +12,8 @@ import Table, {
     TableRow
 } from 'material-ui/Table';
 
-
 export default class AreaLista extends React.Component {
-
+        
     setPagina(numero) {
         this.props.mudaPagina(numero);
     }
@@ -24,7 +23,7 @@ export default class AreaLista extends React.Component {
         if (this.props.editar) {
             let botao = <IconButton onClick={(evento) => {
                 this.props.editar(area);
-            }} color="secondary">
+            }} color="primary">
                 <Icon>create</Icon>
             </IconButton>;
             botoes.push(botao);
@@ -34,7 +33,7 @@ export default class AreaLista extends React.Component {
             let botao =
                 <IconButton onClick={(evento) => {
                     this.props.apagar(area);
-                }} color="primary">
+                }} color="accent">
                     <Icon>delete</Icon>
                 </IconButton>;
             botoes.push(botao);
@@ -45,7 +44,7 @@ export default class AreaLista extends React.Component {
     render() {
 
         if (!this.props.pagina.content) {
-            return <div>Vazio!</div>;
+            return <div>Não existem itens a serem exibidos.<br/><br/><br/></div>;
         } else {
 
             return <Table >

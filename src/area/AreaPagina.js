@@ -6,7 +6,7 @@ import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
 import Button from "material-ui/Button";
 import Icon from 'material-ui/Icon';
-
+import AddIcon from 'material-ui-icons/Add';
 export default class AreaPagina extends React.Component {
 
     constructor(props) {
@@ -105,11 +105,22 @@ export default class AreaPagina extends React.Component {
                             );
                         }}
                         area={this.state.area}/>
-                    <Button raised color="primary" onClick={(evento) => this.novoItem()}>
-                        Adicionar Área de Interesse
+                    <Button fab color="primary" onClick={(evento) => this.novoItem()}>
+                        <AddIcon />
                     </Button>
                 </Paper>
+                
+                
             </Grid>
         </Grid>;
     }
 }
+
+
+
+
+
+
+
+
+

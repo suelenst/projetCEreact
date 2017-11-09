@@ -6,14 +6,45 @@
 
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import {withStyles} from 'material-ui/styles';
+import Img from 'react-image'
 
 
-export default class Home extends React.Component {
+const styles = theme => ({
+    img: {
+      maxWidth: '25%',
+      maxheight:'25%',
+      minWidth: 10,
+      minheight:10,
+      
+    },
+    h1: {
+        Width: '50%',
+    },
+    });
+
+class Home extends React.Component {
     render() {
-        return <div> home</div>;
+      const {classes, theme} = this.props;
+      return (
+              
+        <div className={classes.h1}>
+           <h1>Torne seus projetos visiveis e gerenciaveis... ProjetCE</h1>
+           <img src="logo.png" alt="Logotipo" className={classes.img}>
+           </img>
+        </div>
+      );
     }
-}
+    
 
+}
+    Home.propTypes = {
+        classes: PropTypes.object.isRequired,
+        theme: PropTypes.object.isRequired,
+    };
+
+export default withStyles(styles, {withTheme: true})(Home);
     
     
     
