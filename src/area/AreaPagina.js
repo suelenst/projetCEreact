@@ -109,8 +109,6 @@ export default class AreaPagina extends React.Component {
                         <AddIcon />
                     </Button>
                 </Paper>
-                
-                
             </Grid>
         </Grid>;
     }

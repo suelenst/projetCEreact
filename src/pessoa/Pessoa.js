@@ -1,9 +1,121 @@
 import React from 'react';
-
-
-
+import AreaServico from '../area/AreaServico';
+import AreaLista from '../area/AreaLista';
+import AreaItem from '../area/AreaItem';
+import Paper from "material-ui/Paper";
+import Grid from "material-ui/Grid";
+import Button from "material-ui/Button";
+import Icon from 'material-ui/Icon';
+import AddIcon from 'material-ui-icons/Add';
+import PessoaItem from "./PessoaItem";
 export default class Pessoa extends React.Component {
-        render(){
-            return <div>Pessoa</div>;
-        } 
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            pagina: {},
+            exibirAreaItem: false,
+            area: {nome: "teste"}
+        }
+
+        this.areaServico = new AreaServico();
+        this.mudarPagina(0);
+
+    }
+
+    novoItem() {
+        this.setState({
+            exibirAreaItem: true,
+            area: {}
+        });
+    }
+
+    setPagina(paginaResultado) {
+        this.setState({
+            pagina: paginaResultado
+        });
+    }
+
+    mudarPagina(numero) {
+        this.paginaAtual = numero;
+        this.areaServico.listarPaginado(numero,
+            (resultado) => {
+                console.log(resultado);
+                this.setPagina(resultado);
+            },
+            (erro) => {
+                console.log("Erro:");
+                console.log(erro);
+            }
+        );
+    }
+
+    render() {
+
+        return <Grid container>
+            <Grid item sm={0} md={1}/>
+            <Grid item sm={12} md={10}>
+                <Paper style={{padding: 10}}>
+
+                    <AreaLista
+                        apagar={(area) => {
+                            this.areaServico.apagar(area.id,
+                                () => {
+                                    alert("Apagado com sucesso!!!");
+                                    this.mudarPagina(this.paginaAtual);
+                                },
+                                (erro) => console.log(erro));
+                        }}
+                        editar={(area) => {
+                            this.setState({exibirAreaItem: true, area: area});
+                        }  }
+                        mudaPagina={(numero) => this.mudarPagina(numero)}
+                        pagina={this.state.pagina}
+                    />
+                    <PessoaItem
+                        cancelar={() => {
+                            this.setState({exibirPessoaItem: false});
+                        }}
+                        abrir={this.state.exibirPessoaItem}
+                        inserir={(pessoa) => {
+                            this.areaServico.inserir(pessoa,
+                                (item) => {
+                                    alert("Área de interesse cadastrada com sucesso!");
+                                    this.setState({exibirPessoaItem: false});
+                                    this.mudarPagina(this.paginaAtual);
+                                },
+                                (erro) => {
+                                    console.log("Erro!");
+                                    console.log(erro);
+                                }
+                            );
+                        }}
+                        editar={(id, area) => {
+                            this.areaServico.editar(id, area,
+                                (item) => {
+                                    alert("Área de interesse alterada com sucesso!");
+                                    this.setState({exibirAreaItem: false});
+                                    this.mudarPagina(this.paginaAtual);
+                                },
+                                (erro) => {
+                                    console.log("Erro!");
+                                    console.log(erro);
+                                }
+                            );
+                        }}
+                        area={this.state.area}/>
+                </Paper>
+            </Grid>
+        </Grid>;
+    }
 }
+
+
+
+
+
+
+
+
+
