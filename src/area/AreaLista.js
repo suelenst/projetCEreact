@@ -44,7 +44,7 @@ export default class AreaLista extends React.Component {
     render() {
 
         if (!this.props.pagina.content) {
-            return <div>Não existem itens a serem exibidos.<br/><br/><br/></div>;
+            return <div>Não há nenhuma área de interesse cadastrada no sistema.<br/><br/><br/></div>;
         } else {
 
             return <Table >

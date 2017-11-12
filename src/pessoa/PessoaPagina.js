@@ -8,26 +8,28 @@ import Button from "material-ui/Button";
 import Icon from 'material-ui/Icon';
 import AddIcon from 'material-ui-icons/Add';
 import PessoaItem from "./PessoaItem";
-export default class Pessoa extends React.Component {
+import PessoaServico from "./PessoaServico";
+import PessoaLista from "./PessoaLista";
+export default class PessoaPagina extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             pagina: {},
-            exibirAreaItem: false,
-            area: {nome: "teste"}
+            exibirPessoaItem: false,
+            pessoa: {nome: "teste"}
         }
 
-        this.areaServico = new AreaServico();
+        this.pessoaServico = new PessoaServico();
         this.mudarPagina(0);
 
     }
 
     novoItem() {
         this.setState({
-            exibirAreaItem: true,
-            area: {}
+            exibirPessoaItem: true,
+            pessoa: {}
         });
     }
 
@@ -39,7 +41,7 @@ export default class Pessoa extends React.Component {
 
     mudarPagina(numero) {
         this.paginaAtual = numero;
-        this.areaServico.listarPaginado(numero,
+        this.pessoaServico.listarPaginado(numero,
             (resultado) => {
                 console.log(resultado);
                 this.setPagina(resultado);
@@ -58,17 +60,18 @@ export default class Pessoa extends React.Component {
             <Grid item sm={12} md={10}>
                 <Paper style={{padding: 10}}>
 
-                    <AreaLista
-                        apagar={(area) => {
-                            this.areaServico.apagar(area.id,
+                    <PessoaLista
+                        apagar={(pessoa) => {
+                            this.pessoaServico.apagar(pessoa.id,
                                 () => {
-                                    alert("Apagado com sucesso!!!");
+                                    alert("Apagada com sucesso!!!");
                                     this.mudarPagina(this.paginaAtual);
+
                                 },
                                 (erro) => console.log(erro));
                         }}
-                        editar={(area) => {
-                            this.setState({exibirAreaItem: true, area: area});
+                        editar={(pessoa) => {
+                            this.setState({exibirPessoaItem: true, pessoa: pessoa});
                         }  }
                         mudaPagina={(numero) => this.mudarPagina(numero)}
                         pagina={this.state.pagina}
@@ -80,8 +83,8 @@ export default class Pessoa extends React.Component {
                         abrir={this.state.exibirPessoaItem}
                         inserir={(pessoa) => {
                             this.areaServico.inserir(pessoa,
-                                (item) => {
-                                    alert("Área de interesse cadastrada com sucesso!");
+                                (pessoa) => {
+                                    alert("Pessoa cadastrada com sucesso!");
                                     this.setState({exibirPessoaItem: false});
                                     this.mudarPagina(this.paginaAtual);
                                 },
@@ -91,11 +94,11 @@ export default class Pessoa extends React.Component {
                                 }
                             );
                         }}
-                        editar={(id, area) => {
-                            this.areaServico.editar(id, area,
-                                (item) => {
-                                    alert("Área de interesse alterada com sucesso!");
-                                    this.setState({exibirAreaItem: false});
+                        editar={(id, pessoa) => {
+                            this.pessoaServico.editar(id, pessoa,
+                                (pessoa) => {
+                                    alert("Pessoa alterada com sucesso!");
+                                    this.setState({exibirPessoaItem: false});
                                     this.mudarPagina(this.paginaAtual);
                                 },
                                 (erro) => {
@@ -104,7 +107,7 @@ export default class Pessoa extends React.Component {
                                 }
                             );
                         }}
-                        area={this.state.area}/>
+                        pessoa={this.state.pessoa}/>
                 </Paper>
             </Grid>
         </Grid>;

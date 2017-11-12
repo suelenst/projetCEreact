@@ -12,17 +12,17 @@ import Table, {
     TableRow
 } from 'material-ui/Table';
 
-export default class AreaLista extends React.Component {
-        
+export default class PessoaLista extends React.Component {
+
     setPagina(numero) {
         this.props.mudaPagina(numero);
     }
 
-    botoesArea(area) {
+    botoesPessoa(pessoa) {
         let botoes = [];
         if (this.props.editar) {
             let botao = <IconButton onClick={(evento) => {
-                this.props.editar(area);
+                this.props.editar(pessoa);
             }} color="primary">
                 <Icon>create</Icon>
             </IconButton>;
@@ -32,7 +32,7 @@ export default class AreaLista extends React.Component {
         if (this.props.apagar) {
             let botao =
                 <IconButton onClick={(evento) => {
-                    this.props.apagar(area);
+                    this.props.apagar(pessoa);
                 }} color="accent">
                     <Icon>delete</Icon>
                 </IconButton>;
@@ -44,7 +44,7 @@ export default class AreaLista extends React.Component {
     render() {
 
         if (!this.props.pagina.content) {
-            return <div>Não existem itens a serem exibidos.<br/><br/><br/></div>;
+            return <div>Não há pessoas cadastradas.<br/><br/><br/></div>;
         } else {
 
             return <Table >
@@ -55,12 +55,12 @@ export default class AreaLista extends React.Component {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {this.props.pagina.content.map((area) => {
-                        return <TableRow hover="true" key={area.id}>
-                            <TableCell>{area.nome}</TableCell>
+                    {this.props.pagina.content.map((pessoa) => {
+                        return <TableRow hover="true" key={pessoa.id}>
+                            <TableCell>{pessoa.nome}</TableCell>
 
                             <TableCell>
-                                {this.botoesArea(area)}</TableCell>
+                                {this.botoesPessoa(pessoa)}</TableCell>
                         </TableRow>;
                     })}
                 </TableBody>
