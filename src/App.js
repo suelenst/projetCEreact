@@ -22,7 +22,7 @@ import Avatar from 'material-ui/Avatar';
 import indigo from 'material-ui/colors/indigo';
 
 import AreaPagina from './area/AreaPagina';
-import Pessoa from './pessoa/Pessoa';
+import Pessoa from './pessoa/PessoaPagina';
 import Home from './home/Home';
 
 
