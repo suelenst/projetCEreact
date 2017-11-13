@@ -5,7 +5,6 @@ import AreaItem from './AreaItem';
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
 import Button from "material-ui/Button";
-import Icon from 'material-ui/Icon';
 import AddIcon from 'material-ui-icons/Add';
 export default class AreaPagina extends React.Component {
 

@@ -47,10 +47,12 @@ export default class PessoaLista extends React.Component {
             return <div>Não há pessoas cadastradas.<br/><br/><br/></div>;
         } else {
 
-            return <Table >
+            return <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>Nome</TableCell>
+                        <TableCell>Email</TableCell>
+                        <TableCell>id</TableCell>
                         <TableCell>Ações</TableCell>
                     </TableRow>
                 </TableHead>
@@ -58,7 +60,8 @@ export default class PessoaLista extends React.Component {
                     {this.props.pagina.content.map((pessoa) => {
                         return <TableRow hover="true" key={pessoa.id}>
                             <TableCell>{pessoa.nome}</TableCell>
-
+                            <TableCell>{pessoa.email}</TableCell>
+                            <TableCell>{pessoa.id}</TableCell>
                             <TableCell>
                                 {this.botoesPessoa(pessoa)}</TableCell>
                         </TableRow>;

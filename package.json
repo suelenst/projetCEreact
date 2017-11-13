@@ -22,6 +22,10 @@
     "/areas": {
       "target": "http://localhost:8080/",
       "ws": true
+    },
+    "/usuarios": {
+      "target": "http://localhost:8080/",
+      "ws": true
     }
   },
   "devDependencies": {

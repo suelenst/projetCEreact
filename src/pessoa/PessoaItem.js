@@ -1,10 +1,8 @@
-import AddIcon from 'material-ui-icons/Add';
 import React from 'react';
 import Button from 'material-ui/Button';
 import Dialog, {
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
 } from 'material-ui/Dialog';
 
@@ -31,22 +29,36 @@ const styles = theme => ({
 
 class PessoaItem extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            pessoa: this.props.pessoa
+        }
+    }
+
     state = {
-        open: false,
         vazio: '',
         showPassword: false,
         textmaskTel: '(  )     -    ',
         checkedAdmin: false,
     };
 
-    handleClickOpen = () => {
-        this.setState({open: true});
-    };
+    componentWillReceiveProps(proximoEstado) {
+        this.setState({pessoa: proximoEstado.pessoa});
+    }
 
-    handleRequestClose = () => {
-        this.setState({open: false});
-        this.setState({checkedAdmin: false});
-    };
+    confirmar() {
+        if (this.state.pessoa.nome) {
+            if (this.state.pessoa.id) {
+                this.props.editar(this.state.pessoa.id, this.state.pessoa);
+            }
+            else {
+                this.props.inserir(this.state.pessoa);
+            }
+        } else {
+            alert("Preencha todos os campos!");
+        }
+    }
 
     render() {
 
@@ -57,12 +69,11 @@ class PessoaItem extends React.Component {
         } else {
             pessoa = <PessoaUsuario/>
         }
-
+        console.log(this.state.pessoa.id);
         return (
             <div>
-                <Button fab color="primary" onClick={this.handleClickOpen}><AddIcon/></Button>
-                <Dialog open={this.state.open}>
-                    <DialogTitle>Adicionar {checkedAdmin ? 'Administrador' : 'Usuário'}</DialogTitle>
+                <Dialog open={this.props.abrir}>
+                    <DialogTitle>{this.state.pessoa.id ? `Editar ${checkedAdmin ? 'Administrador' : 'Usuário'}` : `Adicionar ${checkedAdmin ? 'Administrador' : 'Usuário'}`}</DialogTitle>
                     <DialogContent>
                         <FormControlLabel
                             control={
@@ -77,10 +88,15 @@ class PessoaItem extends React.Component {
                         {pessoa}
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleRequestClose} color="primary">
+                        <Button onClick={() => {
+                            this.props.cancelar();
+                            this.setState({checkedAdmin: false})
+                        }} color="primary">
                             Cancelar
                         </Button>
-                        <Button onClick={this.handleRequestClose} color="primary">
+                        <Button onClick={(evento) => {
+                            this.confirmar()
+                        }} color="primary">
                             Adicionar
                         </Button>
                     </DialogActions>

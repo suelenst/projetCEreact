@@ -1,15 +1,12 @@
 import React from 'react';
-import AreaServico from '../area/AreaServico';
-import AreaLista from '../area/AreaLista';
-import AreaItem from '../area/AreaItem';
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
-import Button from "material-ui/Button";
-import Icon from 'material-ui/Icon';
-import AddIcon from 'material-ui-icons/Add';
 import PessoaItem from "./PessoaItem";
 import PessoaServico from "./PessoaServico";
 import PessoaLista from "./PessoaLista";
+import Button from "material-ui/es/Button/Button";
+import AddIcon from 'material-ui-icons/Add';
+
 export default class PessoaPagina extends React.Component {
 
     constructor(props) {
@@ -37,13 +34,13 @@ export default class PessoaPagina extends React.Component {
         this.setState({
             pagina: paginaResultado
         });
+        console.log(paginaResultado);
     }
 
     mudarPagina(numero) {
         this.paginaAtual = numero;
         this.pessoaServico.listarPaginado(numero,
             (resultado) => {
-                console.log(resultado);
                 this.setPagina(resultado);
             },
             (erro) => {
@@ -82,8 +79,8 @@ export default class PessoaPagina extends React.Component {
                         }}
                         abrir={this.state.exibirPessoaItem}
                         inserir={(pessoa) => {
-                            this.areaServico.inserir(pessoa,
-                                (pessoa) => {
+                            this.pessoaServico.inserir(pessoa,
+                                (item) => {
                                     alert("Pessoa cadastrada com sucesso!");
                                     this.setState({exibirPessoaItem: false});
                                     this.mudarPagina(this.paginaAtual);
@@ -96,7 +93,7 @@ export default class PessoaPagina extends React.Component {
                         }}
                         editar={(id, pessoa) => {
                             this.pessoaServico.editar(id, pessoa,
-                                (pessoa) => {
+                                (item) => {
                                     alert("Pessoa alterada com sucesso!");
                                     this.setState({exibirPessoaItem: false});
                                     this.mudarPagina(this.paginaAtual);
@@ -108,6 +105,7 @@ export default class PessoaPagina extends React.Component {
                             );
                         }}
                         pessoa={this.state.pessoa}/>
+                    <Button fab color="primary" onClick={(evento) => this.novoItem()}><AddIcon/></Button>
                 </Paper>
             </Grid>
         </Grid>;
