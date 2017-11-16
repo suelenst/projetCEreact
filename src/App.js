@@ -18,6 +18,15 @@ import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import Icon from 'material-ui/Icon';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
+
+import ListSubheader from 'material-ui/List/ListSubheader';
+import Collapse from 'material-ui/transitions/Collapse';
+import ExpandLess from 'material-ui-icons/ExpandLess';
+import ExpandMore from 'material-ui-icons/ExpandMore';
+
+
+
+
 import Avatar from 'material-ui/Avatar';
 import indigo from 'material-ui/colors/indigo';
 
@@ -105,6 +114,10 @@ const styles = theme => ({
         color: '#ffffff',
         fontSize: '70%',
     },
+    
+    nested: {
+    paddingLeft: theme.spacing.unit * 4,
+    },
  
 
 });
@@ -116,10 +129,16 @@ class App extends Component {
 
     state = {
         mobileOpen: false,
+        open: true,
     };
 
     handleDrawerToggle = () => {
         this.setState({mobileOpen: !this.state.mobileOpen});
+    };
+    
+
+    handleClick = () => {
+      this.setState({ open: !this.state.open });
     };
 
     render() {
@@ -133,7 +152,7 @@ class App extends Component {
                         <ListItem button>
 
                             <ListItemIcon>
-                                <Icon>work</Icon>
+                                <Icon>bubble_chart</Icon>
                             </ListItemIcon>
                             <ListItemText primary="Áreas de Interesse"/>
 
@@ -141,22 +160,42 @@ class App extends Component {
                     </Link>
 
                         
-                    <Link to="pessoa" className={classes.link}>
-                        <ListItem button>
 
+                    
+                    <ListItem button onClick={this.handleClick}>
+                            <ListItemIcon>
+                              <Icon>person</Icon>
+                            </ListItemIcon>
+                            <ListItemText inset primary="Pessoas" />
+                            {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                    </ListItem>
+                     
+                    
+                    <Collapse component="li" in={this.state.open} transitionDuration="auto" unmountOnExit>
+                        <List disablePadding>
+                        <Link to="pessoa" className={classes.link}>
+                          <ListItem button className={classes.nested}>
                             <ListItemIcon>
                                 <Icon>people</Icon>
                             </ListItemIcon>
-                            <ListItemText primary="Pessoas"/>
-
-                        </ListItem>                       
-                        
-                    </Link>
-                    
-                                        
-                    
-                
-                </List>
+                            <ListItemText primary="Usuários"/>
+                          </ListItem>   
+                        </Link>
+                          
+                        <Link to="pessoa" className={classes.link}>
+                          <ListItem button className={classes.nested}>
+                            <ListItemIcon>
+                                <Icon>vpn_key</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary="Administradores"/>
+                          </ListItem>   
+                        </Link>     
+                          
+                          
+                          
+                        </List>
+                    </Collapse>
+      </List>
             </div>
         );
 
