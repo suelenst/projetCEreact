@@ -23,8 +23,8 @@ export default class PessoaLista extends React.Component {
         if (this.props.editar) {
             let botao = <IconButton onClick={(evento) => {
                 this.props.editar(pessoa);
-            }} color="primary">
-                <Icon>create</Icon>
+            }}>
+                <Icon style={{color: '#51B0FF'}}>create</Icon>
             </IconButton>;
             botoes.push(botao);
         }
@@ -34,7 +34,7 @@ export default class PessoaLista extends React.Component {
                 <IconButton onClick={(evento) => {
                     this.props.apagar(pessoa);
                 }} color="accent">
-                    <Icon>delete</Icon>
+                    <Icon style={{color: '#51B0FF'}}>delete</Icon>
                 </IconButton>;
             botoes.push(botao);
         }

@@ -104,7 +104,7 @@ export default class AreaPagina extends React.Component {
                             );
                         }}
                         area={this.state.area}/>
-                    <Button fab color="primary" onClick={(evento) => this.novoItem()}>
+                    <Button fab style={{background: '#51B0FF',color:'#ffffff'}} onClick={(evento) => this.novoItem()}>
                         <AddIcon />
                     </Button>
                 </Paper>

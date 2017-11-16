@@ -105,7 +105,7 @@ export default class PessoaPagina extends React.Component {
                             );
                         }}
                         pessoa={this.state.pessoa}/>
-                    <Button fab color="primary" onClick={(evento) => this.novoItem()}><AddIcon/></Button>
+                    <Button fab style={{background: '#51B0FF',color:'#ffffff' }} onClick={(evento) => this.novoItem()}><AddIcon/></Button>
                 </Paper>
             </Grid>
         </Grid>;
