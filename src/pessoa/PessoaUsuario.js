@@ -40,25 +40,23 @@ class TextMaskCustom extends React.Component {
 
 class PessoaUsuario extends React.Component {
 
-    state = {
-        vazio: '',
-        showPassword: false,
-        textmaskTel: '(  )     -    ',
-        checkedAdmin: false,
-        isAluno: false,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            pessoa: this.props.pessoa,
+            vazio: '',
+            showPassword: false,
+            textmaskTel: '(  )     -    ',
+            checkedAdmin: false,
+        };
+        this.props.pessoa.tipo = "usuario";
+    }
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-
-        if (event.target.value === "aluno") {
-            this.setState({isAluno: true});
-        } else {
-            this.setState({isAluno: false});
-        }
-    };
+    // handleChange = name => event => {
+    //     this.setState({
+    //         [name]: event.target.value,
+    //     });
+    // };
 
     handleMouseDownPassword = event => {
         event.preventDefault();
@@ -68,26 +66,84 @@ class PessoaUsuario extends React.Component {
         this.setState({showPassword: !this.state.showPassword});
     };
 
+    setNome(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.nome = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setApelido(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.apelido = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setEmail(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.email = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setSenha(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.senha = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setTelefone(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.telefone = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setTipoVinculo(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.tipoVinculo = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setCurso(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.curso = valor;
+                return anterior;
+            }
+        );
+    }
 
     render() {
         const {classes} = this.props;
-        const isAluno = this.state.isAluno;
 
-        let curso = null;
-        if (isAluno) {
-            curso =
-                <TextField
-                    autoFocus
-                    required
-                    margin="dense"
-                    id="curso"
-                    label="Curso"
-                    type="text"
-                    className={classes.maior}
-                />;
-        } else {
-            curso = null;
-        }
+        let curso =
+            <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="curso"
+                label="Curso"
+                type="text"
+                className={classes.maior}
+                value={this.state.pessoa.curso}
+                onChange={(evento) => this.setCurso(evento.target.value)}
+            />;
 
         return (
             <div>
@@ -99,14 +155,20 @@ class PessoaUsuario extends React.Component {
                     label="Nome"
                     type="text"
                     className={classes.maior}
-                />
+                    value={this.state.pessoa.nome}
+                    onChange={(evento) => this.setNome(evento.target.value)}
+                /><br/><br/>
+
                 <TextField
                     margin="dense"
                     id="apelido"
                     label="Apelido"
                     type="text"
                     className={classes.formControl}
+                    value={this.state.pessoa.apelido}
+                    onChange={(evento) => this.setApelido(evento.target.value)}
                 />
+
                 <TextField
                     required
                     margin="dense"
@@ -115,14 +177,19 @@ class PessoaUsuario extends React.Component {
                     placeholder="pcsilva"
                     type="text"
                     className={classes.formControl}
+                    value={this.state.pessoa.email}
+                    onChange={(evento) => this.setEmail(evento.target.value)}
                 />
+
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="senha" required>Senha</InputLabel>
                     <Input
                         id="senha"
                         type={this.state.showPassword ? 'text' : 'password'}
-                        value={this.state.password}
-                        onChange={this.handleChange('password')}
+                        value={this.state.pessoa.senha}
+                        onChange={(evento) => this.setSenha(evento.target.value)}
+                        // value={this.state.password}
+                        // onChange={this.handleChange('password')}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -135,24 +202,30 @@ class PessoaUsuario extends React.Component {
                         }
                     />
                 </FormControl>
+
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="telefone" required>Telefone</InputLabel>
                     <Input
                         id="telefone"
-                        value={this.state.textmaskTel}
+                        value={this.state.pessoa.telefone ? this.state.pessoa.telefone : this.state.textmaskTel}
+                        onChange={(evento) => this.setTelefone(evento.target.value)}
+                        //value={this.state.textmaskTel}
                         inputComponent={TextMaskCustom}
-                        onChange={this.handleChange('textmaskTel')}
+                        //onChange={this.handleChange('textmaskTel')}
                         className={classes.input}
                         inputProps={{
                             'aria-label': 'Description',
                         }}
                     />
                 </FormControl>
+
                 <FormControl className={classes.maior}>
                     <InputLabel htmlFor="tipoVinculo" required>Tipo de Vínculo Institucional</InputLabel>
                     <Select
-                        value={this.state.vazio}
-                        onChange={this.handleChange('vazio')}
+                        // value={this.state.vazio}
+                        // onChange={this.handleChange('vazio')}
+                        value={this.state.pessoa.tipoVinculo ? this.state.pessoa.tipoVinculo : ""}
+                        onChange={(evento) => this.setTipoVinculo(evento.target.value)}
                         input={<Input id="tipoVinculo"/>}
                     >
                         <MenuItem value=""> </MenuItem>
@@ -161,7 +234,8 @@ class PessoaUsuario extends React.Component {
                         <MenuItem value={'servidorTecnico'}>Servidor Técnico</MenuItem>
                     </Select>
                 </FormControl>
-                {curso}
+
+                {this.state.pessoa.tipoVinculo === "aluno" ? curso : null}
             </div>
         );
     }

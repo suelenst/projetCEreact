@@ -65,11 +65,17 @@ class PessoaItem extends React.Component {
         const checkedAdmin = this.state.checkedAdmin;
         let pessoa = null;
         if (checkedAdmin) {
-            pessoa = <PessoaAdmin/>
+            pessoa =
+                <PessoaAdmin
+                    pessoa={this.state.pessoa}
+                />
         } else {
-            pessoa = <PessoaUsuario/>
+            pessoa =
+                <PessoaUsuario
+                    pessoa={this.state.pessoa}
+                />
         }
-        console.log(this.state.pessoa.id);
+
         return (
             <div>
                 <Dialog open={this.props.abrir}>
@@ -97,7 +103,7 @@ class PessoaItem extends React.Component {
                         <Button onClick={(evento) => {
                             this.confirmar()
                         }} color="primary">
-                            Adicionar
+                            {this.state.pessoa.id ? `Salvar` : `Adicionar`}
                         </Button>
                     </DialogActions>
                 </Dialog>
