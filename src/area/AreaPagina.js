@@ -55,7 +55,7 @@ export default class AreaPagina extends React.Component {
             <Grid item sm={0} md={1}/>
             <Grid item sm={12} md={10}>
                 <Paper style={{padding: 10}}>
-
+                    <h2>Áreas de Interesse</h2>
                     <AreaLista
                         apagar={(area) => {
                             this.areaServico.apagar(area.id,
@@ -104,7 +104,7 @@ export default class AreaPagina extends React.Component {
                             );
                         }}
                         area={this.state.area}/>
-                    <Button fab style={{background: '#51B0FF',color:'#ffffff'}} onClick={(evento) => this.novoItem()}>
+                    <Button fab style={{background: '#51B0FF', color: '#ffffff'}} onClick={(evento) => this.novoItem()}>
                         <AddIcon />
                     </Button>
                 </Paper>

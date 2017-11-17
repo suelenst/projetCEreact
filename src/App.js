@@ -157,36 +157,46 @@ class App extends Component {
                     </Link>
 
 
-                    <ListItem button onClick={this.handleClick}>
-                        <ListItemIcon>
-                            <Icon>person</Icon>
-                        </ListItemIcon>
-                        <ListItemText inset primary="Pessoas"/>
-                        {this.state.open ? <ExpandLess /> : <ExpandMore />}
-                    </ListItem>
+                    {/*<ListItem button onClick={this.handleClick}>*/}
+                    {/*<ListItemIcon>*/}
+                    {/*<Icon>person</Icon>*/}
+                    {/*</ListItemIcon>*/}
+                    {/*<ListItemText inset primary="Pessoas"/>*/}
+                    {/*{this.state.open ? <ExpandLess /> : <ExpandMore />}*/}
+                    {/*</ListItem>*/}
 
+                    <Link to="pessoa" className={classes.link}>
+                        <ListItem button>
 
-                    <Collapse component="li" in={this.state.open} transitionDuration="auto" unmountOnExit>
-                        <List disablePadding>
-                            <Link to="pessoa" className={classes.link}>
-                                <ListItem button className={classes.nested}>
-                                    <ListItemIcon>
-                                        <Icon>people</Icon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Usuários"/>
-                                </ListItem>
-                            </Link>
+                            <ListItemIcon>
+                                <Icon>people</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary="Pessoas"/>
 
-                            <Link to="pessoa" className={classes.link}>
-                                <ListItem button className={classes.nested}>
-                                    <ListItemIcon>
-                                        <Icon>vpn_key</Icon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Administradores"/>
-                                </ListItem>
-                            </Link>
-                        </List>
-                    </Collapse>
+                        </ListItem>
+
+                    </Link>
+                    {/*<Collapse component="li" in={this.state.open} transitionDuration="auto" unmountOnExit>*/}
+                    {/*<List disablePadding>*/}
+                    {/*<Link to="pessoa" className={classes.link}>*/}
+                    {/*<ListItem button className={classes.nested}>*/}
+                    {/*<ListItemIcon>*/}
+                    {/*<Icon>people</Icon>*/}
+                    {/*</ListItemIcon>*/}
+                    {/*<ListItemText primary="Usuários"/>*/}
+                    {/*</ListItem>*/}
+                    {/*</Link>*/}
+
+                    {/*<Link to="pessoa" className={classes.link}>*/}
+                    {/*<ListItem button className={classes.nested}>*/}
+                    {/*<ListItemIcon>*/}
+                    {/*<Icon>vpn_key</Icon>*/}
+                    {/*</ListItemIcon>*/}
+                    {/*<ListItemText primary="Administradores"/>*/}
+                    {/*</ListItem>*/}
+                    {/*</Link>*/}
+                    {/*</List>*/}
+                    {/*</Collapse>*/}
                 </List>
             </div>
         );

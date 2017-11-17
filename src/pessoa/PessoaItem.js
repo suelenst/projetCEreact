@@ -44,18 +44,16 @@ class PessoaItem extends React.Component {
         this.setState({pessoa: proximoEstado.pessoa});
     }
 
-    confirmar() {                    
+    confirmar() {
         let re = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*/;
-        
-    
 
         if (this.state.pessoa.nome && this.state.pessoa.email && this.state.pessoa.senha) {
-            if(re.test(this.state.pessoa.email)){
-                if (this.state.pessoa.tipo === "usuario"){
+            if (re.test(this.state.pessoa.email)) {
+                if (this.state.pessoa.tipo === "usuario") {
                     if (this.state.pessoa.tipoVinculo) {
-                        
-                        if(this.state.pessoa.tipoVinculo !== "aluno" || this.state.pessoa.curso ){
-                            
+
+                        if (this.state.pessoa.tipoVinculo !== "aluno" || this.state.pessoa.curso) {
+
                             if (this.state.pessoa.id) {
                                 this.props.editar(this.state.pessoa.id, this.state.pessoa);
                             }
@@ -65,33 +63,33 @@ class PessoaItem extends React.Component {
                         } else {
                             alert("Curso obrigatório");
                         }
-                            
-                    }else {
+
+                    } else {
                         alert("Tipo de vínculo obrigatório");
-                    } 
-                    
+                    }
+
                 } else {
                     if (this.state.pessoa.cpf) {
-                        if (this.state.pessoa.id) {
-                            this.props.editar(this.state.pessoa.id, this.state.pessoa);
-                        }
-                        else {
-                            this.props.inserir(this.state.pessoa);
-                        }
-                    }else {
+                            if (this.state.pessoa.id) {
+                                this.props.editar(this.state.pessoa.id, this.state.pessoa);
+                            }
+                            else {
+                                this.props.inserir(this.state.pessoa);
+                            }
+                    } else {
                         alert("Cpf obrigatório");
-                    } 
-                    
+                    }
+
                 }
-                                   
-            }else {
+
+            } else {
                 alert("Prefixo de Email inválido");
             }
         } else {
             alert("Preencha todos os campos!");
         }
-        
-        
+
+
     }
 
 
@@ -144,7 +142,7 @@ class PessoaItem extends React.Component {
         return (
             <div>
                 <Dialog open={this.props.abrir}>
-                    <DialogTitle>{this.state.pessoa.id ? `Editar ${this.state.pessoa.tipo === "usuario" ? 'Usuário' : 'Administrador'}` : `Adicionar ${this.state.pessoa.tipo === "usuario" ? 'Usuário' : 'Administrador'}`}</DialogTitle>
+                    <DialogTitle>{this.state.pessoa.id ? `Editar ${this.state.pessoa.tipo === "usuario" ? 'Usuário' : 'Administrador'}` : `Adicionar ${this.state.checkedAdmin ? 'Administrador' : 'Usuário'}`}</DialogTitle>
                     <DialogContent>
                         {selectAdmin}
                         <br/>

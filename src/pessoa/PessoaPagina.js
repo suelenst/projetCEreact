@@ -75,11 +75,10 @@ export default class PessoaPagina extends React.Component {
             <Grid item sm={0} md={1}/>
             <Grid item sm={12} md={10}>
                 <Paper style={{padding: 10}}>
-
+                    <h2>Pessoas</h2>
                     <PessoaLista
                         apagar={(pessoa) => {
                             if (pessoa.tipo === "usuario") {
-                                console.log("entrei no if");
                                 this.usuarioServico.apagar(pessoa.id,
                                     () => {
                                         alert("Apagada com sucesso!!!");
@@ -87,7 +86,6 @@ export default class PessoaPagina extends React.Component {
                                     },
                                     (erro) => console.log(erro));
                             } else {
-                                console.log("cai no else");
                                 this.adminServico.apagar(pessoa.id,
                                     () => {
                                         alert("Apagada com sucesso!!!");
@@ -112,7 +110,7 @@ export default class PessoaPagina extends React.Component {
                             if (pessoa.tipo === "usuario") {
                                 this.usuarioServico.inserir(pessoa,
                                     (item) => {
-                                        alert("Pessoa cadastrada com sucesso!");
+                                        alert("Usuário cadastrado com sucesso!");
                                         this.setState({exibirPessoaItem: false});
                                         this.mudarPagina(this.paginaAtual);
                                     },
@@ -124,7 +122,7 @@ export default class PessoaPagina extends React.Component {
                             } else {
                                 this.adminServico.inserir(pessoa,
                                     (item) => {
-                                        alert("Pessoa cadastrada com sucesso!");
+                                        alert("Administrador cadastrado com sucesso!");
                                         this.setState({exibirPessoaItem: false});
                                         this.mudarPagina(this.paginaAtual);
                                     },
@@ -139,7 +137,7 @@ export default class PessoaPagina extends React.Component {
                             if (pessoa.tipo === "usuario") {
                                 this.usuarioServico.editar(id, pessoa,
                                     (item) => {
-                                        alert("Pessoa alterada com sucesso!");
+                                        alert("Usuário alterado com sucesso!");
                                         this.setState({exibirPessoaItem: false});
                                         this.mudarPagina(this.paginaAtual);
                                     },
@@ -151,7 +149,7 @@ export default class PessoaPagina extends React.Component {
                             } else {
                                 this.adminServico.editar(id, pessoa,
                                     (item) => {
-                                        alert("Pessoa alterada com sucesso!");
+                                        alert("Administrador alterado com sucesso!");
                                         this.setState({exibirPessoaItem: false});
                                         this.mudarPagina(this.paginaAtual);
                                     },
