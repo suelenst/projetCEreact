@@ -26,6 +26,10 @@
     "/usuarios": {
       "target": "http://localhost:8080/",
       "ws": true
+    },
+    "/administradores": {
+      "target": "http://localhost:8080/",
+      "ws": true
     }
   },
   "devDependencies": {

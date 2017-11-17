@@ -11,7 +11,6 @@ import FormControl from "material-ui/es/Form/FormControl";
 import MaskedInput from 'react-text-mask';
 
 
-
 const styles = theme => ({
     maior: {
         marginLeft: theme.spacing.unit,
@@ -41,7 +40,7 @@ class TextMaskCustomCPF extends React.Component {
         return (
             <MaskedInput
                 {...this.props}
-                mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.',  /\d/, /\d/, /\d/, '-',  /\d/, /\d/]}
+                mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
                 placeholderChar={'\u2000'}
                 showMask
             />
@@ -51,20 +50,24 @@ class TextMaskCustomCPF extends React.Component {
 
 class PessoaAdmin extends React.Component {
 
-    state = {
-        vazio: '',
-        showPassword: false,
-        textmaskTel: '(  )     -    ',
-        textmaskCPF: '   .   .   -  ',
-        checkedAdmin: false,
-        test: false,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            pessoa: this.props.pessoa,
+            vazio: '',
+            showPassword: false,
+            textmaskTel: '(  )     -    ',
+            textmaskCPF: '   .   .   -  ',
+            checkedAdmin: true,
+        };
+        this.props.pessoa.tipo = "administrador";
+    }
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
+    // handleChange = name => event => {
+    //     this.setState({
+    //         [name]: event.target.value,
+    //     });
+    // };
 
     handleMouseDownPassword = event => {
         event.preventDefault();
@@ -73,6 +76,51 @@ class PessoaAdmin extends React.Component {
     handleClickShowPasssword = () => {
         this.setState({showPassword: !this.state.showPassword});
     };
+
+    setNome(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.nome = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setEmail(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.email = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setSenha(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.senha = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setTelefone(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.telefone = valor;
+                return anterior;
+            }
+        );
+    }
+
+    setCPF(valor) {
+        this.setState(
+            (anterior) => {
+                anterior.pessoa.cpf = valor;
+                return anterior;
+            }
+        );
+    }
 
 
     render() {
@@ -88,20 +136,24 @@ class PessoaAdmin extends React.Component {
                     label="Nome"
                     type="text"
                     className={classes.maior}
+                    value={this.state.pessoa.nome}
+                    onChange={(evento) => this.setNome(evento.target.value)}
                 />
+
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="cpf" required>CPF</InputLabel>
                     <Input
                         id="cpf"
-                        value={this.state.textmaskCPF}
                         inputComponent={TextMaskCustomCPF}
-                        onChange={this.handleChange('textmaskCPF')}
                         className={classes.input}
+                        value={this.state.pessoa.cpf ? this.state.pessoa.cpf : this.state.textmaskCPF}
+                        onChange={(evento) => this.setCPF(evento.target.value)}
                         inputProps={{
                             'aria-label': 'Description',
                         }}
                     />
                 </FormControl>
+
                 <TextField
                     required
                     margin="dense"
@@ -110,14 +162,17 @@ class PessoaAdmin extends React.Component {
                     placeholder="pcsilva"
                     type="text"
                     className={classes.formControl}
+                    value={this.state.pessoa.email}
+                    onChange={(evento) => this.setEmail(evento.target.value)}
                 />
+
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="senha" required>Senha</InputLabel>
                     <Input
                         id="senha"
                         type={this.state.showPassword ? 'text' : 'password'}
-                        value={this.state.password}
-                        onChange={this.handleChange('password')}
+                        value={this.state.pessoa.senha}
+                        onChange={(evento) => this.setSenha(evento.target.value)}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -130,13 +185,14 @@ class PessoaAdmin extends React.Component {
                         }
                     />
                 </FormControl>
+
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="telefone" required>Telefone</InputLabel>
                     <Input
                         id="telefone"
-                        value={this.state.textmaskTel}
+                        value={this.state.pessoa.telefone ? this.state.pessoa.telefone : this.state.textmaskTel}
+                        onChange={(evento) => this.setTelefone(evento.target.value)}
                         inputComponent={TextMaskCustomTelefone}
-                        onChange={this.handleChange('textmaskTel')}
                         className={classes.input}
                         inputProps={{
                             'aria-label': 'Description',

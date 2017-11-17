@@ -2,10 +2,11 @@ import React from 'react';
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
 import PessoaItem from "./PessoaItem";
-import PessoaServico from "./PessoaServico";
+import UsuarioServico from "./UsuarioServico";
 import PessoaLista from "./PessoaLista";
 import Button from "material-ui/es/Button/Button";
 import AddIcon from 'material-ui-icons/Add';
+import AdminServico from "./AdminServico";
 
 export default class PessoaPagina extends React.Component {
 
@@ -13,12 +14,14 @@ export default class PessoaPagina extends React.Component {
         super(props);
 
         this.state = {
-            pagina: {},
+            user: {},
+            admin: {},
             exibirPessoaItem: false,
             pessoa: {nome: "teste"}
         }
 
-        this.pessoaServico = new PessoaServico();
+        this.usuarioServico = new UsuarioServico();
+        this.adminServico = new AdminServico();
         this.mudarPagina(0);
 
     }
@@ -32,16 +35,32 @@ export default class PessoaPagina extends React.Component {
 
     setPagina(paginaResultado) {
         this.setState({
-            pagina: paginaResultado
+            user: paginaResultado
+        });
+        console.log(paginaResultado);
+    }
+
+    setAdmin(paginaResultado) {
+        this.setState({
+            admin: paginaResultado
         });
         console.log(paginaResultado);
     }
 
     mudarPagina(numero) {
         this.paginaAtual = numero;
-        this.pessoaServico.listarPaginado(numero,
+        this.usuarioServico.listarPaginado(numero,
             (resultado) => {
                 this.setPagina(resultado);
+            },
+            (erro) => {
+                console.log("Erro:");
+                console.log(erro);
+            }
+        );
+        this.adminServico.listarPaginado(numero,
+            (resultado) => {
+                this.setAdmin(resultado);
             },
             (erro) => {
                 console.log("Erro:");
@@ -59,19 +78,30 @@ export default class PessoaPagina extends React.Component {
 
                     <PessoaLista
                         apagar={(pessoa) => {
-                            this.pessoaServico.apagar(pessoa.id,
-                                () => {
-                                    alert("Apagada com sucesso!!!");
-                                    this.mudarPagina(this.paginaAtual);
-
-                                },
-                                (erro) => console.log(erro));
+                            if (pessoa.tipo === "usuario") {
+                                console.log("entrei no if");
+                                this.usuarioServico.apagar(pessoa.id,
+                                    () => {
+                                        alert("Apagada com sucesso!!!");
+                                        this.mudarPagina(this.paginaAtual);
+                                    },
+                                    (erro) => console.log(erro));
+                            } else {
+                                console.log("cai no else");
+                                this.adminServico.apagar(pessoa.id,
+                                    () => {
+                                        alert("Apagada com sucesso!!!");
+                                        this.mudarPagina(this.paginaAtual);
+                                    },
+                                    (erro) => console.log(erro));
+                            }
                         }}
                         editar={(pessoa) => {
                             this.setState({exibirPessoaItem: true, pessoa: pessoa});
-                        }  }
+                        }}
                         mudaPagina={(numero) => this.mudarPagina(numero)}
-                        pagina={this.state.pagina}
+                        user={this.state.user}
+                        admin={this.state.admin}
                     />
                     <PessoaItem
                         cancelar={() => {
@@ -79,33 +109,61 @@ export default class PessoaPagina extends React.Component {
                         }}
                         abrir={this.state.exibirPessoaItem}
                         inserir={(pessoa) => {
-                            this.pessoaServico.inserir(pessoa,
-                                (item) => {
-                                    alert("Pessoa cadastrada com sucesso!");
-                                    this.setState({exibirPessoaItem: false});
-                                    this.mudarPagina(this.paginaAtual);
-                                },
-                                (erro) => {
-                                    console.log("Erro!");
-                                    console.log(erro);
-                                }
-                            );
+                            if (pessoa.tipo === "usuario") {
+                                this.usuarioServico.inserir(pessoa,
+                                    (item) => {
+                                        alert("Pessoa cadastrada com sucesso!");
+                                        this.setState({exibirPessoaItem: false});
+                                        this.mudarPagina(this.paginaAtual);
+                                    },
+                                    (erro) => {
+                                        console.log("Erro!");
+                                        console.log(erro);
+                                    }
+                                );
+                            } else {
+                                this.adminServico.inserir(pessoa,
+                                    (item) => {
+                                        alert("Pessoa cadastrada com sucesso!");
+                                        this.setState({exibirPessoaItem: false});
+                                        this.mudarPagina(this.paginaAtual);
+                                    },
+                                    (erro) => {
+                                        console.log("Erro!");
+                                        console.log(erro);
+                                    }
+                                );
+                            }
                         }}
                         editar={(id, pessoa) => {
-                            this.pessoaServico.editar(id, pessoa,
-                                (item) => {
-                                    alert("Pessoa alterada com sucesso!");
-                                    this.setState({exibirPessoaItem: false});
-                                    this.mudarPagina(this.paginaAtual);
-                                },
-                                (erro) => {
-                                    console.log("Erro!");
-                                    console.log(erro);
-                                }
-                            );
+                            if (pessoa.tipo === "usuario") {
+                                this.usuarioServico.editar(id, pessoa,
+                                    (item) => {
+                                        alert("Pessoa alterada com sucesso!");
+                                        this.setState({exibirPessoaItem: false});
+                                        this.mudarPagina(this.paginaAtual);
+                                    },
+                                    (erro) => {
+                                        console.log("Erro!");
+                                        console.log(erro);
+                                    }
+                                );
+                            } else {
+                                this.adminServico.editar(id, pessoa,
+                                    (item) => {
+                                        alert("Pessoa alterada com sucesso!");
+                                        this.setState({exibirPessoaItem: false});
+                                        this.mudarPagina(this.paginaAtual);
+                                    },
+                                    (erro) => {
+                                        console.log("Erro!");
+                                        console.log(erro);
+                                    }
+                                );
+                            }
                         }}
                         pessoa={this.state.pessoa}/>
-                    <Button fab style={{background: '#51B0FF',color:'#ffffff' }} onClick={(evento) => this.novoItem()}><AddIcon/></Button>
+                    <Button fab style={{background: '#51B0FF', color: '#ffffff'}} onClick={(evento) => this.novoItem()}><AddIcon/></Button>
                 </Paper>
             </Grid>
         </Grid>;

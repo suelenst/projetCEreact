@@ -32,16 +32,13 @@ class PessoaItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            pessoa: this.props.pessoa
+            pessoa: this.props.pessoa,
+            vazio: '',
+            showPassword: false,
+            textmaskTel: '(  )     -    ',
+            checkedAdmin: false,
         }
     }
-
-    state = {
-        vazio: '',
-        showPassword: false,
-        textmaskTel: '(  )     -    ',
-        checkedAdmin: false,
-    };
 
     componentWillReceiveProps(proximoEstado) {
         this.setState({pessoa: proximoEstado.pessoa});
@@ -63,33 +60,55 @@ class PessoaItem extends React.Component {
     render() {
 
         const checkedAdmin = this.state.checkedAdmin;
+        let selectAdmin = null;
         let pessoa = null;
-        if (checkedAdmin) {
-            pessoa =
-                <PessoaAdmin
-                    pessoa={this.state.pessoa}
-                />
-        } else {
-            pessoa =
-                <PessoaUsuario
-                    pessoa={this.state.pessoa}
+
+        if (!this.state.pessoa.id) {
+            selectAdmin =
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={this.state.checkedAdmin}
+                            onChange={(event, checked) => this.setState({checkedAdmin: checked})}
+                        />
+                    }
+                    label="Administrador"
                 />
         }
+
+        if (this.state.pessoa.id) {
+            if (this.state.pessoa.tipo === "usuario") {
+                pessoa =
+                    <PessoaUsuario
+                        pessoa={this.state.pessoa}
+                    />
+            } else {
+                pessoa =
+                    <PessoaAdmin
+                        pessoa={this.state.pessoa}
+                    />
+            }
+        } else {
+            if (checkedAdmin) {
+                pessoa =
+                    <PessoaAdmin
+                        pessoa={this.state.pessoa}
+                    />
+            } else {
+                pessoa =
+                    <PessoaUsuario
+                        pessoa={this.state.pessoa}
+                    />
+            }
+        }
+
 
         return (
             <div>
                 <Dialog open={this.props.abrir}>
-                    <DialogTitle>{this.state.pessoa.id ? `Editar ${checkedAdmin ? 'Administrador' : 'Usuário'}` : `Adicionar ${checkedAdmin ? 'Administrador' : 'Usuário'}`}</DialogTitle>
+                    <DialogTitle>{this.state.pessoa.id ? `Editar ${this.state.pessoa.tipo === "usuario" ? 'Usuário' : 'Administrador'}` : `Adicionar ${this.state.pessoa.tipo === "usuario" ? 'Usuário' : 'Administrador'}`}</DialogTitle>
                     <DialogContent>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={this.state.checkedAdmin}
-                                    onChange={(event, checked) => this.setState({checkedAdmin: checked})}
-                                />
-                            }
-                            label="Administrador"
-                        />
+                        {selectAdmin}
                         <br/>
                         {pessoa}
                     </DialogContent>

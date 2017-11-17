@@ -70,7 +70,7 @@ export default class AreaPagina extends React.Component {
                             this.setState({exibirAreaItem: true, area: area});
                         }  }
                         mudaPagina={(numero) => this.mudarPagina(numero)}
-                        pagina={this.state.pagina}
+                        pagina={this.state.user}
                     />
                     <AreaItem
                         cancelar={() => {

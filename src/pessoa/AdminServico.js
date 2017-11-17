@@ -6,9 +6,9 @@
 
 import ServicoRest from "../ServicoRest";
 
-export default class PessoaServico extends  ServicoRest {
+export default class AdminServico extends  ServicoRest {
         constructor(){
-            super("/usuarios/");
+            super("/administradores/");
         }
         
 }

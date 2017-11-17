@@ -1,4 +1,3 @@
-
 export default class ServicoRest {
 
     constructor(url) {
@@ -73,7 +72,7 @@ export default class ServicoRest {
             }
         };
 
-        fetch(this.url + "?pagina=" + pagina, {
+        fetch(this.url + "?user=" + pagina, {
             method: "GET"
         }).then(trataFetch);
 

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-    
-    
-    /* eslint-disable flowtype/require-valid-file-annotation */
+import React, {Component} from 'react';
+
+
+/* eslint-disable flowtype/require-valid-file-annotation */
 
 
 import PropTypes from 'prop-types';
@@ -16,15 +16,13 @@ import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import Icon from 'material-ui/Icon';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 
 
 import ListSubheader from 'material-ui/List/ListSubheader';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
-
-
 
 
 import Avatar from 'material-ui/Avatar';
@@ -56,7 +54,7 @@ const styles = theme => ({
         display: 'flex',
         width: '100%',
         height: '100%',
-                   
+
     },
     appBar: {
         position: 'absolute',
@@ -64,11 +62,10 @@ const styles = theme => ({
         [theme.breakpoints.up('md')]: {
             width: `calc(100% - ${drawerWidth}px)`,
         },
-        background: '#51B0FF', 
+        background: '#51B0FF',
     },
-    
-   
-    
+
+
     navIconHide: {
         [theme.breakpoints.up('md')]: {
             display: 'none',
@@ -84,7 +81,7 @@ const styles = theme => ({
         },
     },
     content: {
-        
+
         width: '100%',
         padding: theme.spacing.unit * 3,
         height: 'calc(100% - 56px)',
@@ -94,38 +91,38 @@ const styles = theme => ({
             marginTop: 64,
         },
     },
-    avatar: { 
+    avatar: {
         color: '#51B0FF',
-        backgroundColor: '#ffffff',  
+        backgroundColor: '#ffffff',
         marginLeft: -12,
         marginRight: 20,
-        
+
     },
-    typography:{
+    typography: {
         color: '#ffffff',
         fontSize: '200%',
         flex: 1,
     },
-    link:{
+    link: {
         textDecoration: 'none',
-        
+
     },
     h1: {
         color: '#ffffff',
         fontSize: '70%',
     },
-    
+
     nested: {
-    paddingLeft: theme.spacing.unit * 4,
+        paddingLeft: theme.spacing.unit * 4,
     },
- 
+
 
 });
 
 // Cores: BFD5E7, 51B0FF
 
 class App extends Component {
-  
+
 
     state = {
         mobileOpen: false,
@@ -135,10 +132,10 @@ class App extends Component {
     handleDrawerToggle = () => {
         this.setState({mobileOpen: !this.state.mobileOpen});
     };
-    
+
 
     handleClick = () => {
-      this.setState({ open: !this.state.open });
+        this.setState({open: !this.state.open});
     };
 
     render() {
@@ -146,8 +143,8 @@ class App extends Component {
 
         const drawer = (
             <div>
-                <List className={classes.list} >
-        
+                <List className={classes.list}>
+
                     <Link to="area" className={classes.link}>
                         <ListItem button>
 
@@ -159,43 +156,38 @@ class App extends Component {
                         </ListItem>
                     </Link>
 
-                        
 
-                    
                     <ListItem button onClick={this.handleClick}>
-                            <ListItemIcon>
-                              <Icon>person</Icon>
-                            </ListItemIcon>
-                            <ListItemText inset primary="Pessoas" />
-                            {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                        <ListItemIcon>
+                            <Icon>person</Icon>
+                        </ListItemIcon>
+                        <ListItemText inset primary="Pessoas"/>
+                        {this.state.open ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
-                     
-                    
+
+
                     <Collapse component="li" in={this.state.open} transitionDuration="auto" unmountOnExit>
                         <List disablePadding>
-                        <Link to="pessoa" className={classes.link}>
-                          <ListItem button className={classes.nested}>
-                            <ListItemIcon>
-                                <Icon>people</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary="Usuários"/>
-                          </ListItem>   
-                        </Link>
-                          
-                        <Link to="pessoa" className={classes.link}>
-                          <ListItem button className={classes.nested}>
-                            <ListItemIcon>
-                                <Icon>vpn_key</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary="Administradores"/>
-                          </ListItem>   
-                        </Link>     
-                          
-                          
-                          
+                            <Link to="pessoa" className={classes.link}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemIcon>
+                                        <Icon>people</Icon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Usuários"/>
+                                </ListItem>
+                            </Link>
+
+                            <Link to="pessoa" className={classes.link}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemIcon>
+                                        <Icon>vpn_key</Icon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Administradores"/>
+                                </ListItem>
+                            </Link>
                         </List>
                     </Collapse>
-      </List>
+                </List>
             </div>
         );
 
@@ -203,7 +195,7 @@ class App extends Component {
             <Router>
                 <div className={classes.root}>
                     <div className={classes.appFrame}>
-                        <AppBar className={classes.appBar} >
+                        <AppBar className={classes.appBar}>
                             <Toolbar>
                                 <IconButton
                                     color="contrast"
@@ -213,10 +205,10 @@ class App extends Component {
                                 >
                                     <MenuIcon />
                                 </IconButton>
-                            
+
                                 <Typography className={classes.typography} component="h1">
                                     <Link to="/" className={classes.link}>
-                                    <h1 className={classes.h1}>ProjetCE</h1>
+                                        <h1 className={classes.h1}>ProjetCE</h1>
                                     </Link>
                                 </Typography>
                                 <Link to="/" className={classes.link}>
@@ -224,12 +216,12 @@ class App extends Component {
 
                                         <Icon>person </Icon>
 
-                                    </Avatar> 
+                                    </Avatar>
                                 </Link>
                             </Toolbar>
 
                         </AppBar>
-                        
+
                         <Hidden mdUp>
                             <Drawer
                                 type="temporary"

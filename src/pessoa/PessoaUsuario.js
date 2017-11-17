@@ -188,8 +188,6 @@ class PessoaUsuario extends React.Component {
                         type={this.state.showPassword ? 'text' : 'password'}
                         value={this.state.pessoa.senha}
                         onChange={(evento) => this.setSenha(evento.target.value)}
-                        // value={this.state.password}
-                        // onChange={this.handleChange('password')}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -209,9 +207,7 @@ class PessoaUsuario extends React.Component {
                         id="telefone"
                         value={this.state.pessoa.telefone ? this.state.pessoa.telefone : this.state.textmaskTel}
                         onChange={(evento) => this.setTelefone(evento.target.value)}
-                        //value={this.state.textmaskTel}
                         inputComponent={TextMaskCustom}
-                        //onChange={this.handleChange('textmaskTel')}
                         className={classes.input}
                         inputProps={{
                             'aria-label': 'Description',
@@ -222,8 +218,6 @@ class PessoaUsuario extends React.Component {
                 <FormControl className={classes.maior}>
                     <InputLabel htmlFor="tipoVinculo" required>Tipo de Vínculo Institucional</InputLabel>
                     <Select
-                        // value={this.state.vazio}
-                        // onChange={this.handleChange('vazio')}
                         value={this.state.pessoa.tipoVinculo ? this.state.pessoa.tipoVinculo : ""}
                         onChange={(evento) => this.setTipoVinculo(evento.target.value)}
                         input={<Input id="tipoVinculo"/>}
