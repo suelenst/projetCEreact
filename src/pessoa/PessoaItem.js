@@ -44,6 +44,27 @@ class PessoaItem extends React.Component {
         this.setState({pessoa: proximoEstado.pessoa});
     }
 
+    static testaCPF(strCPF) {
+        let Soma;
+        let Resto;
+        Soma = 0;
+        if (strCPF === "00000000000") return false;
+
+        for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+        Resto = (Soma * 10) % 11;
+
+        if ((Resto === 10) || (Resto === 11)) Resto = 0;
+        if (Resto !== parseInt(strCPF.substring(9, 10))) return false;
+
+        Soma = 0;
+        for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+        Resto = (Soma * 10) % 11;
+
+        if ((Resto === 10) || (Resto === 11)) Resto = 0;
+        return Resto === parseInt(strCPF.substring(10, 11));
+
+    }
+
     confirmar() {
         let re = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*/;
 
@@ -70,14 +91,18 @@ class PessoaItem extends React.Component {
 
                 } else {
                     if (this.state.pessoa.cpf) {
+                        if (PessoaItem.testaCPF(this.state.pessoa.cpf)) {
                             if (this.state.pessoa.id) {
                                 this.props.editar(this.state.pessoa.id, this.state.pessoa);
                             }
                             else {
                                 this.props.inserir(this.state.pessoa);
                             }
+                        } else {
+                            alert("CPF inválido");
+                        }
                     } else {
-                        alert("Cpf obrigatório");
+                        alert("CPF obrigatório");
                     }
 
                 }
