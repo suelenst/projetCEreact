@@ -52,12 +52,6 @@ class PessoaUsuario extends React.Component {
         this.props.pessoa.tipo = "usuario";
     }
 
-    // handleChange = name => event => {
-    //     this.setState({
-    //         [name]: event.target.value,
-    //     });
-    // };
-
     handleMouseDownPassword = event => {
         event.preventDefault();
     };
@@ -66,64 +60,10 @@ class PessoaUsuario extends React.Component {
         this.setState({showPassword: !this.state.showPassword});
     };
 
-    setNome(valor) {
+    setValor(campo, valor) {
         this.setState(
             (anterior) => {
-                anterior.pessoa.nome = valor;
-                return anterior;
-            }
-        );
-    }
-
-    setApelido(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.apelido = valor;
-                return anterior;
-            }
-        );
-    }
-
-    setEmail(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.email = valor;
-                return anterior;
-            }
-        );
-    }
-
-    setSenha(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.senha = valor;
-                return anterior;
-            }
-        );
-    }
-
-    setTelefone(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.telefone = valor;
-                return anterior;
-            }
-        );
-    }
-
-    setTipoVinculo(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.tipoVinculo = valor;
-                return anterior;
-            }
-        );
-    }
-
-    setCurso(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.curso = valor;
+                anterior.pessoa[campo] = valor;
                 return anterior;
             }
         );
@@ -142,7 +82,7 @@ class PessoaUsuario extends React.Component {
                 type="text"
                 className={classes.maior}
                 value={this.state.pessoa.curso}
-                onChange={(evento) => this.setCurso(evento.target.value)}
+                onChange={(evento) => this.setValor("curso", evento.target.value)}
             />;
 
         return (
@@ -156,7 +96,7 @@ class PessoaUsuario extends React.Component {
                     type="text"
                     className={classes.maior}
                     value={this.state.pessoa.nome}
-                    onChange={(evento) => this.setNome(evento.target.value)}
+                    onChange={(evento) => this.setValor("nome", evento.target.value)}
                 /><br/><br/>
 
                 <TextField
@@ -166,7 +106,7 @@ class PessoaUsuario extends React.Component {
                     type="text"
                     className={classes.formControl}
                     value={this.state.pessoa.apelido}
-                    onChange={(evento) => this.setApelido(evento.target.value)}
+                    onChange={(evento) => this.setValor("apelido", evento.target.value)}
                 />
 
                 <TextField
@@ -178,16 +118,16 @@ class PessoaUsuario extends React.Component {
                     type="text"
                     className={classes.formControl}
                     value={this.state.pessoa.email}
-                    onChange={(evento) => this.setEmail(evento.target.value)}
+                    onChange={(evento) => this.setValor("email", evento.target.value)}
                 />
 
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="senha" required>Senha</InputLabel>
+                <FormControl className={classes.formControl} required>
+                    <InputLabel htmlFor="senha">Senha</InputLabel>
                     <Input
                         id="senha"
                         type={this.state.showPassword ? 'text' : 'password'}
                         value={this.state.pessoa.senha}
-                        onChange={(evento) => this.setSenha(evento.target.value)}
+                        onChange={(evento) => this.setValor("senha", evento.target.value)}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -202,11 +142,11 @@ class PessoaUsuario extends React.Component {
                 </FormControl>
 
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="telefone" >Telefone</InputLabel>
+                    <InputLabel htmlFor="telefone">Telefone</InputLabel>
                     <Input
                         id="telefone"
                         value={this.state.pessoa.telefone ? this.state.pessoa.telefone : this.state.textmaskTel}
-                        onChange={(evento) => this.setTelefone(evento.target.value)}
+                        onChange={(evento) => this.setValor("telefone", evento.target.value)}
                         inputComponent={TextMaskCustom}
                         className={classes.input}
                         inputProps={{
@@ -215,11 +155,11 @@ class PessoaUsuario extends React.Component {
                     />
                 </FormControl>
 
-                <FormControl className={classes.maior}>
-                    <InputLabel htmlFor="tipoVinculo" required>Tipo de Vínculo Institucional</InputLabel>
+                <FormControl className={classes.maior} required>
+                    <InputLabel htmlFor="tipoVinculo">Tipo de Vínculo Institucional</InputLabel>
                     <Select
                         value={this.state.pessoa.tipoVinculo ? this.state.pessoa.tipoVinculo : ""}
-                        onChange={(evento) => this.setTipoVinculo(evento.target.value)}
+                        onChange={(evento) => this.setValor("tipoVinculo", evento.target.value)}
                         input={<Input id="tipoVinculo"/>}
                     >
                         <MenuItem value=""> </MenuItem>

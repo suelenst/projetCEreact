@@ -35,18 +35,18 @@ class TextMaskCustomTelefone extends React.Component {
     }
 }
 
-class TextMaskCustomCPF extends React.Component {
-    render() {
-        return (
-            <MaskedInput
-                {...this.props}
-                mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
-                placeholderChar={'\u2000'}
-                showMask
-            />
-        );
-    }
-}
+// class TextMaskCustomCPF extends React.Component {
+//     render() {
+//         return (
+//             <MaskedInput
+//                 {...this.props}
+//                 mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
+//                 placeholderChar={'\u2000'}
+//                 showMask
+//             />
+//         );
+//     }
+// }
 
 class PessoaAdmin extends React.Component {
 
@@ -57,17 +57,11 @@ class PessoaAdmin extends React.Component {
             vazio: '',
             showPassword: false,
             textmaskTel: '(  )     -    ',
-            textmaskCPF: '   .   .   -  ',
+            //textmaskCPF: '   .   .   -  ',
             checkedAdmin: true,
         };
         this.props.pessoa.tipo = "administrador";
     }
-
-    // handleChange = name => event => {
-    //     this.setState({
-    //         [name]: event.target.value,
-    //     });
-    // };
 
     handleMouseDownPassword = event => {
         event.preventDefault();
@@ -77,51 +71,14 @@ class PessoaAdmin extends React.Component {
         this.setState({showPassword: !this.state.showPassword});
     };
 
-    setNome(valor) {
+    setValor(campo, valor) {
         this.setState(
             (anterior) => {
-                anterior.pessoa.nome = valor;
+                anterior.pessoa[campo] = valor;
                 return anterior;
             }
         );
     }
-
-    setEmail(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.email = valor;
-                return anterior;
-            }
-        );
-    }
-
-    setSenha(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.senha = valor;
-                return anterior;
-            }
-        );
-    }
-
-    setTelefone(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.telefone = valor;
-                return anterior;
-            }
-        );
-    }
-
-    setCPF(valor) {
-        this.setState(
-            (anterior) => {
-                anterior.pessoa.cpf = valor;
-                return anterior;
-            }
-        );
-    }
-
 
     render() {
         const {classes} = this.props;
@@ -137,17 +94,18 @@ class PessoaAdmin extends React.Component {
                     type="text"
                     className={classes.maior}
                     value={this.state.pessoa.nome}
-                    onChange={(evento) => this.setNome(evento.target.value)}
+                    onChange={(evento) => this.setValor("nome", evento.target.value)}
                 />
 
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="cpf" required>CPF</InputLabel>
+                <FormControl className={classes.formControl} required>
+                    <InputLabel htmlFor="cpf">CPF</InputLabel>
                     <Input
                         id="cpf"
-                        inputComponent={TextMaskCustomCPF}
                         className={classes.input}
-                        value={this.state.pessoa.cpf ? this.state.pessoa.cpf : this.state.textmaskCPF}
-                        onChange={(evento) => this.setCPF(evento.target.value)}
+                        //inputComponent={TextMaskCustomCPF}
+                        //value={this.state.pessoa.cpf ? this.state.pessoa.cpf : this.state.textmaskCPF}
+                        value={this.state.pessoa.cpf}
+                        onChange={(evento) => this.setValor("cpf", evento.target.value)}
                         inputProps={{
                             'aria-label': 'Description',
                         }}
@@ -163,16 +121,16 @@ class PessoaAdmin extends React.Component {
                     type="text"
                     className={classes.formControl}
                     value={this.state.pessoa.email}
-                    onChange={(evento) => this.setEmail(evento.target.value)}
+                    onChange={(evento) => this.setValor("email", evento.target.value)}
                 />
 
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="senha" required>Senha</InputLabel>
+                <FormControl className={classes.formControl} required>
+                    <InputLabel htmlFor="senha">Senha</InputLabel>
                     <Input
                         id="senha"
                         type={this.state.showPassword ? 'text' : 'password'}
                         value={this.state.pessoa.senha}
-                        onChange={(evento) => this.setSenha(evento.target.value)}
+                        onChange={(evento) => this.setValor("senha", evento.target.value)}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -187,11 +145,11 @@ class PessoaAdmin extends React.Component {
                 </FormControl>
 
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="telefone" >Telefone</InputLabel>
+                    <InputLabel htmlFor="telefone">Telefone</InputLabel>
                     <Input
                         id="telefone"
                         value={this.state.pessoa.telefone ? this.state.pessoa.telefone : this.state.textmaskTel}
-                        onChange={(evento) => this.setTelefone(evento.target.value)}
+                        onChange={(evento) => this.setValor("telefone", evento.target.value)}
                         inputComponent={TextMaskCustomTelefone}
                         className={classes.input}
                         inputProps={{
