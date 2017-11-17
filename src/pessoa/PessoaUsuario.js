@@ -202,7 +202,7 @@ class PessoaUsuario extends React.Component {
                 </FormControl>
 
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="telefone" required>Telefone</InputLabel>
+                    <InputLabel htmlFor="telefone" >Telefone</InputLabel>
                     <Input
                         id="telefone"
                         value={this.state.pessoa.telefone ? this.state.pessoa.telefone : this.state.textmaskTel}

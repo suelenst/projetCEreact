@@ -43,7 +43,7 @@ export default class AreaLista extends React.Component {
 
     render() {
 
-        if (!this.props.user.content) {
+        if (!this.props.pagina.content) {
             return <div>Não há nenhuma área de interesse cadastrada no sistema.<br/><br/><br/></div>;
         } else {
 
@@ -55,7 +55,7 @@ export default class AreaLista extends React.Component {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {this.props.user.content.map((area) => {
+                    {this.props.pagina.content.map((area) => {
                         return <TableRow hover="true" key={area.id}>
                             <TableCell>{area.nome}</TableCell>
 
@@ -67,15 +67,15 @@ export default class AreaLista extends React.Component {
                 <TableFooter>
                     <TableRow>
                         <TablePagination
-                            count={this.props.user.totalElements}
-                            rowsPerPage={this.props.user.size}
-                            page={this.props.user.number}
+                            count={this.props.pagina.totalElements}
+                            rowsPerPage={this.props.pagina.size}
+                            page={this.props.pagina.number}
                             onChangePage={(evento, pagina) => {
                                 this.setPagina(pagina);
                             }}
                             onChangeRowsPerPage={() => {
                             }}
-                            rowsPerPageOptions={[this.props.user.size]}
+                            rowsPerPageOptions={[this.props.pagina.size]}
                             labelRowsPerPage=""
                         />
                     </TableRow>

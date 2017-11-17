@@ -70,7 +70,7 @@ export default class AreaPagina extends React.Component {
                             this.setState({exibirAreaItem: true, area: area});
                         }  }
                         mudaPagina={(numero) => this.mudarPagina(numero)}
-                        pagina={this.state.user}
+                        pagina={this.state.pagina}
                     />
                     <AreaItem
                         cancelar={() => {
@@ -112,12 +112,3 @@ export default class AreaPagina extends React.Component {
         </Grid>;
     }
 }
-
-
-
-
-
-
-
-
-

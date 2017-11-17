@@ -44,18 +44,56 @@ class PessoaItem extends React.Component {
         this.setState({pessoa: proximoEstado.pessoa});
     }
 
-    confirmar() {
-        if (this.state.pessoa.nome) {
-            if (this.state.pessoa.id) {
-                this.props.editar(this.state.pessoa.id, this.state.pessoa);
-            }
-            else {
-                this.props.inserir(this.state.pessoa);
+    confirmar() {                    
+        let re = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*/;
+        
+    
+
+        if (this.state.pessoa.nome && this.state.pessoa.email && this.state.pessoa.senha) {
+            if(re.test(this.state.pessoa.email)){
+                if (this.state.pessoa.tipo === "usuario"){
+                    if (this.state.pessoa.tipoVinculo) {
+                        
+                        if(this.state.pessoa.tipoVinculo !== "aluno" || this.state.pessoa.curso ){
+                            
+                            if (this.state.pessoa.id) {
+                                this.props.editar(this.state.pessoa.id, this.state.pessoa);
+                            }
+                            else {
+                                this.props.inserir(this.state.pessoa);
+                            }
+                        } else {
+                            alert("Curso obrigatório");
+                        }
+                            
+                    }else {
+                        alert("Tipo de vínculo obrigatório");
+                    } 
+                    
+                } else {
+                    if (this.state.pessoa.cpf) {
+                        if (this.state.pessoa.id) {
+                            this.props.editar(this.state.pessoa.id, this.state.pessoa);
+                        }
+                        else {
+                            this.props.inserir(this.state.pessoa);
+                        }
+                    }else {
+                        alert("Cpf obrigatório");
+                    } 
+                    
+                }
+                                   
+            }else {
+                alert("Prefixo de Email inválido");
             }
         } else {
             alert("Preencha todos os campos!");
         }
+        
+        
     }
+
 
     render() {
 
