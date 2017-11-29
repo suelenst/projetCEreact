@@ -18,7 +18,7 @@ export default class PessoaPagina extends React.Component {
             admin: {},
             exibirPessoaItem: false,
             pessoa: {nome: "teste"}
-        }
+        };
 
         this.usuarioServico = new UsuarioServico();
         this.adminServico = new AdminServico();

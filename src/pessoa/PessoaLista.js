@@ -43,7 +43,7 @@ export default class PessoaLista extends React.Component {
 
     render() {
 
-        if (!this.props.user.content) {
+        if (!this.props.user.content || !this.props.admin.content) {
             return <div>Não há pessoas cadastradas.<br/><br/><br/></div>;
         } else {
 

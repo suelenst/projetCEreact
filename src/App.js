@@ -29,7 +29,7 @@ import Avatar from 'material-ui/Avatar';
 import indigo from 'material-ui/colors/indigo';
 
 import AreaPagina from './area/AreaPagina';
-import Pessoa from './pessoa/PessoaPagina';
+import PessoaPagina from './pessoa/PessoaPagina';
 import Home from './home/Home';
 
 
@@ -38,6 +38,9 @@ import {
     Route,
     Link
 } from 'react-router-dom';
+import FormControlLabel from "material-ui/es/Form/FormControlLabel";
+import Switch from "material-ui/es/Switch/Switch";
+import ProjetoPagina from "./projeto/ProjetoPagina";
 
 const drawerWidth = 240;
 
@@ -126,7 +129,8 @@ class App extends Component {
 
     state = {
         mobileOpen: false,
-        open: true,
+        open: false,
+        checkedAdmin: false,
     };
 
     handleDrawerToggle = () => {
@@ -141,10 +145,25 @@ class App extends Component {
     render() {
         const {classes, theme} = this.props;
 
-        const drawer = (
+        const checkedAdmin = this.state.checkedAdmin;
+        let selectAdmin;
+        let drawer = null;
+
+        selectAdmin = (
+            <FormControlLabel
+                control={
+                    <Switch
+                        checked={this.state.checkedAdmin}
+                        onChange={(event, checked) => this.setState({checkedAdmin: checked})}
+                    />
+                }
+                label="Administrador"
+            />);
+
+
+        const adminDrawer = (
             <div>
                 <List className={classes.list}>
-
                     <Link to="area" className={classes.link}>
                         <ListItem button>
 
@@ -200,6 +219,59 @@ class App extends Component {
                 </List>
             </div>
         );
+        const userDrawer = (
+            <div>
+                <List className={classes.list}>
+                    <Link to="area" className={classes.link}>
+                        <ListItem button>
+
+                            <ListItemIcon>
+                                <Icon>bubble_chart</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary="Home"/>
+
+                        </ListItem>
+                    </Link>
+
+
+                    <ListItem button onClick={this.handleClick}>
+                        <ListItemIcon>
+                            <Icon>person</Icon>
+                        </ListItemIcon>
+                        <ListItemText inset primary="Projetos"/>
+                        {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                    </ListItem>
+
+                    <Collapse component="li" in={this.state.open} transitionDuration="auto" unmountOnExit>
+                        <List disablePadding>
+                            <Link to="projetos" className={classes.link}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemIcon>
+                                        <Icon>people</Icon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Meus Projetos"/>
+                                </ListItem>
+                            </Link>
+
+                            <Link to="pessoa" className={classes.link}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemIcon>
+                                        <Icon>vpn_key</Icon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Criar Novo Projeto"/>
+                                </ListItem>
+                            </Link>
+                        </List>
+                    </Collapse>
+                </List>
+            </div>
+        );
+
+        if (checkedAdmin) {
+            drawer = adminDrawer;
+        } else {
+            drawer = userDrawer;
+        }
 
         return (
             <Router>
@@ -231,7 +303,6 @@ class App extends Component {
                             </Toolbar>
 
                         </AppBar>
-
                         <Hidden mdUp>
                             <Drawer
                                 type="temporary"
@@ -249,6 +320,7 @@ class App extends Component {
                             </Drawer>
                         </Hidden>
                         <Hidden mdDown implementation="css">
+                            <ListItem>{selectAdmin}</ListItem>
                             <Drawer
                                 type="permanent"
                                 open
@@ -262,7 +334,8 @@ class App extends Component {
                         <main className={classes.content}>
                             <Route exact path="/" component={Home}/>
                             <Route path="/area" component={AreaPagina}/>
-                            <Route path="/pessoa" component={Pessoa}/>
+                            <Route path="/pessoa" component={PessoaPagina}/>
+                            <Route path="/projetos" component={ProjetoPagina}/>
                         </main>
                     </div>
 
