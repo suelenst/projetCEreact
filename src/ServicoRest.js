@@ -1,3 +1,11 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+import base64 from "base-64/base64.js";
+import servicoLogin from "./login/ServicoLogin";
+
 export default class ServicoRest {
 
     constructor(url) {
@@ -5,17 +13,21 @@ export default class ServicoRest {
     }
 
     apagar(id, sucesso, erro) {
-        fetch(`${this.url}/${id}`, {
-                method: "DELETE"
-            }
-        ).then((resposta) => {
-            if (resposta.ok) {
-                sucesso();
-            } else {
-                resposta.json().then(erro);
-            }
-        });
-
+         fetch(`${this.url}/${id}`,{
+             headers: new Headers({
+                'Authorization': 'Basic ' + servicoLogin.getAuthorization()
+            }),
+            method:"DELETE"
+        }
+        ).then((resposta)=>{
+           if(resposta.ok) {
+               sucesso();
+           } else {
+               resposta.json().then(erro);              
+           }
+               
+        } );
+        
     }
 
     inserir(item, sucesso, erro) {
@@ -23,6 +35,7 @@ export default class ServicoRest {
         fetch(this.url, {
             method: "POST",
             headers: new Headers({
+                'Authorization': 'Basic ' + servicoLogin.getAuthorization(),
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify(item)
@@ -31,7 +44,7 @@ export default class ServicoRest {
                 resultado.json().then(sucesso)
             } else {
                 resultado.json().then(
-                    (resultadoErro) => erro(resultadoErro)
+                        (resultadoErro) => erro(resultadoErro)
                 )
             }
 
@@ -43,6 +56,7 @@ export default class ServicoRest {
         fetch(`${this.url}/${id}`, {
             method: "PUT",
             headers: new Headers({
+                'Authorization': 'Basic ' + servicoLogin.getAuthorization(),
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify(item)
@@ -51,7 +65,7 @@ export default class ServicoRest {
                 sucesso();
             } else {
                 resultado.json().then(
-                    (resultadoErro) => erro(resultadoErro)
+                        (resultadoErro) => erro(resultadoErro)
                 )
             }
 
@@ -60,6 +74,22 @@ export default class ServicoRest {
 
 
     listarPaginado(pagina, sucesso, erro) {
+        /* 
+         this.listarPaginado(2,
+         (resultado)=>{
+         console.log(resultado);
+         }, (erro)=>{
+         console.log("Deu M!");
+         console.log(erro);
+         
+         }  
+         
+         );    
+         ((teste)=>{console.log(teste)})(
+         "carlos"); 
+         
+         log("carlos ");
+         */
 
         let trataFetch = (resultado) => {
             this.url;
@@ -67,12 +97,16 @@ export default class ServicoRest {
                 resultado.json().then(sucesso)
             } else {
                 resultado.json().then(
-                    (resultadoErro) => erro(resultadoErro)
+                        (resultadoErro) => erro(resultadoErro)
                 )
             }
         };
 
-        fetch(this.url + "?user=" + pagina, {
+        fetch(this.url + "?pagina=" + pagina, {
+                        headers: new Headers({
+                'Authorization': 'Basic ' + servicoLogin.getAuthorization()
+              
+            }),
             method: "GET"
         }).then(trataFetch);
 

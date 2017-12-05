@@ -8,7 +8,7 @@ import ServicoRest from "../ServicoRest";
 
 export default class AreaServico extends  ServicoRest {
         constructor(){
-            super("/areas/");
+            super("api/areas/");
         }
         
 }

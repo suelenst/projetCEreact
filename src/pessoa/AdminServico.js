@@ -8,7 +8,7 @@ import ServicoRest from "../ServicoRest";
 
 export default class AdminServico extends  ServicoRest {
         constructor(){
-            super("/administradores/");
+            super("api/administradores/");
         }
         
 }

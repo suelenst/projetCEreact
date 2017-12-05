@@ -32,6 +32,8 @@ import AreaPagina from './area/AreaPagina';
 import PessoaPagina from './pessoa/PessoaPagina';
 import Home from './home/Home';
 
+import Login from "./login/Login";
+import servicoLogin from "./login/ServicoLogin";
 
 import {
     BrowserRouter as Router,
@@ -40,7 +42,7 @@ import {
 } from 'react-router-dom';
 import FormControlLabel from "material-ui/es/Form/FormControlLabel";
 import Switch from "material-ui/es/Switch/Switch";
-import ProjetoPagina from "./projeto/ProjetoPagina";
+
 
 const drawerWidth = 240;
 
@@ -125,7 +127,14 @@ const styles = theme => ({
 // Cores: BFD5E7, 51B0FF
 
 class App extends Component {
+    
 
+    constructor(props){
+        super(props);
+        this.state={
+            logado:servicoLogin.logado()
+        };
+    } 
 
     state = {
         mobileOpen: false,
@@ -148,6 +157,7 @@ class App extends Component {
         const checkedAdmin = this.state.checkedAdmin;
         let selectAdmin;
         let drawer = null;
+        let avatar = null;
 
         selectAdmin = (
             <FormControlLabel
@@ -267,11 +277,50 @@ class App extends Component {
             </div>
         );
 
-        if (checkedAdmin) {
-            drawer = adminDrawer;
-        } else {
-            drawer = userDrawer;
+        const visitDrawer = (
+            <div>
+                <List className={classes.list}>                    
+                </List>
+            </div>
+        );
+
+        const avatarUser = (
+             <Link to="/" className={classes.link}>
+                <Avatar src="perfil.png" className={classes.avatar}>
+                </Avatar>
+            </Link>
+        );
+
+        const avatarVisit = (
+            <Link to="/login" className={classes.link}>
+                <Avatar className={classes.avatar}>
+                    <Icon>person </Icon>
+                </Avatar>
+            </Link>
+        );
+
+        const location = {
+            pathname: '/login',
+            state: { logado:true }
         }
+
+
+        if (this.state.logado){
+            avatar = avatarUser;
+            
+            if (checkedAdmin) {
+            drawer = adminDrawer;
+            } else {
+                drawer = userDrawer;
+            }
+        } else {
+            drawer = visitDrawer;
+            avatar = avatarVisit;
+        }
+            
+
+
+
 
         return (
             <Router>
@@ -293,13 +342,7 @@ class App extends Component {
                                         <h1 className={classes.h1}>ProjetCE</h1>
                                     </Link>
                                 </Typography>
-                                <Link to="/" className={classes.link}>
-                                    <Avatar className={classes.avatar}>
-
-                                        <Icon>person </Icon>
-
-                                    </Avatar>
-                                </Link>
+                                {avatar}
                             </Toolbar>
 
                         </AppBar>
@@ -334,8 +377,9 @@ class App extends Component {
                         <main className={classes.content}>
                             <Route exact path="/" component={Home}/>
                             <Route path="/area" component={AreaPagina}/>
-                            <Route path="/pessoa" component={PessoaPagina}/>
-                            <Route path="/projetos" component={ProjetoPagina}/>
+                            <Route path="/pessoa" component={PessoaPagina}/>                     
+                            <Route path="/login" render={() => <Login onLogin={()=>this.setState({logado:true})} />}/>
+                                                            
                         </main>
                     </div>
 
