@@ -50,6 +50,7 @@ class PessoaUsuario extends React.Component {
             checkedAdmin: false,
         };
         this.props.pessoa.tipo = "usuario";
+        this.props.pessoa.permissoes = ["usuario"];
     }
 
     handleMouseDownPassword = event => {
@@ -122,12 +123,12 @@ class PessoaUsuario extends React.Component {
                 />
 
                 <FormControl className={classes.formControl} required>
-                    <InputLabel htmlFor="senha">Senha</InputLabel>
+                    <InputLabel htmlFor="novaSenha">Senha</InputLabel>
                     <Input
-                        id="senha"
+                        id="novaSenha"
                         type={this.state.showPassword ? 'text' : 'password'}
-                        value={this.state.pessoa.senha}
-                        onChange={(evento) => this.setValor("senha", evento.target.value)}
+                        value={this.state.pessoa.novaSenha}
+                        onChange={(evento) => this.setValor("novaSenha", evento.target.value)}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton

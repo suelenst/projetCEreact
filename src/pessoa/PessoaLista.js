@@ -43,7 +43,7 @@ export default class PessoaLista extends React.Component {
 
     render() {
 
-        if (!this.props.user.content || !this.props.admin.content) {
+        if (!this.props.pagina.content) {
             return <div>Não há pessoas cadastradas.<br/><br/><br/></div>;
         } else {
 
@@ -57,21 +57,13 @@ export default class PessoaLista extends React.Component {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {this.props.user.content.map((pessoa) => {
+                    {this.props.pagina.content.map((pessoa) => {
                         return <TableRow hover="true" key={pessoa.id}>
                             <TableCell>{pessoa.nome}</TableCell>
                             <TableCell>{pessoa.email + "@restinga.ifrs.edu.br"}</TableCell>
-                            <TableCell><Icon>person</Icon></TableCell>
-                            <TableCell>
-                                {this.botoesPessoa(pessoa)}
-                            </TableCell>
-                        </TableRow>;
-                    })}
-                    {this.props.admin.content.map((pessoa) => {
-                        return <TableRow hover="true" key={pessoa.id}>
-                            <TableCell>{pessoa.nome}</TableCell>
-                            <TableCell>{pessoa.email + "@restinga.ifrs.edu.br"}</TableCell>
-                            <TableCell><Icon st>vpn_key</Icon></TableCell>
+                            <TableCell>{pessoa.tipo}</TableCell>
+                            
+                            
                             <TableCell>
                                 {this.botoesPessoa(pessoa)}
                             </TableCell>
@@ -80,16 +72,16 @@ export default class PessoaLista extends React.Component {
                 </TableBody>
                 <TableFooter>
                     <TableRow>
-                        <TablePagination
-                            count={this.props.admin.totalElements + this.props.user.totalElements}
-                            rowsPerPage={this.props.admin.size}
-                            page={this.props.admin.number}
-                            onChangePage={(evento, user) => {
-                                this.setPagina(user);
+                         <TablePagination
+                            count={this.props.pagina.totalElements}
+                            rowsPerPage={this.props.pagina.size}
+                            page={this.props.pagina.number}
+                            onChangePage={(evento, pagina) => {
+                                this.setPagina(pagina);
                             }}
                             onChangeRowsPerPage={() => {
                             }}
-                            rowsPerPageOptions={[this.props.admin.size]}
+                            rowsPerPageOptions={[this.props.pagina.size]}
                             labelRowsPerPage=""
                         />
                     </TableRow>

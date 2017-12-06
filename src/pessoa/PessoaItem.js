@@ -68,7 +68,7 @@ class PessoaItem extends React.Component {
     confirmar() {
         let re = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*/;
 
-        if (this.state.pessoa.nome && this.state.pessoa.email && this.state.pessoa.senha) {
+        if (this.state.pessoa.nome && this.state.pessoa.email && this.state.pessoa.novaSenha) {
             if (re.test(this.state.pessoa.email)) {
                 if (this.state.pessoa.tipo === "usuario") {
                     if (this.state.pessoa.tipoVinculo) {
@@ -111,7 +111,7 @@ class PessoaItem extends React.Component {
                 alert("Prefixo de Email inválido");
             }
         } else {
-            alert("Preencha todos os campos!");
+            
         }
 
 

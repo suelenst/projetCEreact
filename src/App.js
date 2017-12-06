@@ -134,12 +134,16 @@ class App extends Component {
         this.state={
             logado:servicoLogin.logado()
         };
+        
+        
     } 
 
     state = {
         mobileOpen: false,
         open: false,
         checkedAdmin: false,
+        
+        
     };
 
     handleDrawerToggle = () => {
@@ -186,13 +190,7 @@ class App extends Component {
                     </Link>
 
 
-                    {/*<ListItem button onClick={this.handleClick}>*/}
-                    {/*<ListItemIcon>*/}
-                    {/*<Icon>person</Icon>*/}
-                    {/*</ListItemIcon>*/}
-                    {/*<ListItemText inset primary="Pessoas"/>*/}
-                    {/*{this.state.open ? <ExpandLess /> : <ExpandMore />}*/}
-                    {/*</ListItem>*/}
+
 
                     <Link to="pessoa" className={classes.link}>
                         <ListItem button>
@@ -205,27 +203,7 @@ class App extends Component {
                         </ListItem>
 
                     </Link>
-                    {/*<Collapse component="li" in={this.state.open} transitionDuration="auto" unmountOnExit>*/}
-                    {/*<List disablePadding>*/}
-                    {/*<Link to="pessoa" className={classes.link}>*/}
-                    {/*<ListItem button className={classes.nested}>*/}
-                    {/*<ListItemIcon>*/}
-                    {/*<Icon>people</Icon>*/}
-                    {/*</ListItemIcon>*/}
-                    {/*<ListItemText primary="Usuários"/>*/}
-                    {/*</ListItem>*/}
-                    {/*</Link>*/}
 
-                    {/*<Link to="pessoa" className={classes.link}>*/}
-                    {/*<ListItem button className={classes.nested}>*/}
-                    {/*<ListItemIcon>*/}
-                    {/*<Icon>vpn_key</Icon>*/}
-                    {/*</ListItemIcon>*/}
-                    {/*<ListItemText primary="Administradores"/>*/}
-                    {/*</ListItem>*/}
-                    {/*</Link>*/}
-                    {/*</List>*/}
-                    {/*</Collapse>*/}
                 </List>
             </div>
         );
@@ -299,17 +277,12 @@ class App extends Component {
             </Link>
         );
 
-        const location = {
-            pathname: '/login',
-            state: { logado:true }
-        }
-
 
         if (this.state.logado){
             avatar = avatarUser;
             
             if (checkedAdmin) {
-            drawer = adminDrawer;
+                drawer = adminDrawer;
             } else {
                 drawer = userDrawer;
             }

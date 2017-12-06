@@ -40,7 +40,7 @@ class ServicoLogin  {
     
     logado() {
     if(this.usuario&&this.senha) {
-        return true;
+        return this.dados;
     } else {
         return false;
     }
