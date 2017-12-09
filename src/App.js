@@ -12,21 +12,17 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
-import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import Icon from 'material-ui/Icon';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 
 
-import ListSubheader from 'material-ui/List/ListSubheader';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
 
 import Avatar from 'material-ui/Avatar';
-import indigo from 'material-ui/colors/indigo';
 
 import AreaPagina from './area/AreaPagina';
 import PessoaPagina from './pessoa/PessoaPagina';
@@ -127,24 +123,16 @@ const styles = theme => ({
 // Cores: BFD5E7, 51B0FF
 
 class App extends Component {
-    
 
-    constructor(props){
+
+    constructor(props) {
         super(props);
-        this.state={
-            logado:servicoLogin.logado()
+        this.state = {
+            logado: servicoLogin.logado(),
+            mobileOpen: false,
+            open: false,
         };
-        
-        
-    } 
-
-    state = {
-        mobileOpen: false,
-        open: false,
-        checkedAdmin: false,
-        
-        
-    };
+    }
 
     handleDrawerToggle = () => {
         this.setState({mobileOpen: !this.state.mobileOpen});
@@ -158,22 +146,10 @@ class App extends Component {
     render() {
         const {classes, theme} = this.props;
 
-        const checkedAdmin = this.state.checkedAdmin;
+        let isAdmin = servicoLogin.logado().tipo=== "administrador";
         let selectAdmin;
         let drawer = null;
         let avatar = null;
-
-        selectAdmin = (
-            <FormControlLabel
-                control={
-                    <Switch
-                        checked={this.state.checkedAdmin}
-                        onChange={(event, checked) => this.setState({checkedAdmin: checked})}
-                    />
-                }
-                label="Administrador"
-            />);
-
 
         const adminDrawer = (
             <div>
@@ -188,9 +164,6 @@ class App extends Component {
 
                         </ListItem>
                     </Link>
-
-
-
 
                     <Link to="pessoa" className={classes.link}>
                         <ListItem button>
@@ -257,13 +230,13 @@ class App extends Component {
 
         const visitDrawer = (
             <div>
-                <List className={classes.list}>                    
+                <List className={classes.list}>
                 </List>
             </div>
         );
 
         const avatarUser = (
-             <Link to="/" className={classes.link}>
+            <Link to="/" className={classes.link}>
                 <Avatar src="perfil.png" className={classes.avatar}>
                 </Avatar>
             </Link>
@@ -277,11 +250,10 @@ class App extends Component {
             </Link>
         );
 
-
-        if (this.state.logado){
+        if (this.state.logado) {
             avatar = avatarUser;
-            
-            if (checkedAdmin) {
+
+            if (isAdmin) {
                 drawer = adminDrawer;
             } else {
                 drawer = userDrawer;
@@ -290,9 +262,6 @@ class App extends Component {
             drawer = visitDrawer;
             avatar = avatarVisit;
         }
-            
-
-
 
 
         return (
@@ -350,12 +319,10 @@ class App extends Component {
                         <main className={classes.content}>
                             <Route exact path="/" component={Home}/>
                             <Route path="/area" component={AreaPagina}/>
-                            <Route path="/pessoa" component={PessoaPagina}/>                     
-                            <Route path="/login" render={() => <Login onLogin={()=>this.setState({logado:true})} />}/>
-                                                            
+                            <Route path="/pessoa" component={PessoaPagina}/>
+                            <Route path="/login" render={() => <Login onLogin={() => this.setState({logado: true})}/>}/>
                         </main>
                     </div>
-
                 </div>
             </Router>
         );

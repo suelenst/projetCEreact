@@ -120,7 +120,7 @@ class PessoaItem extends React.Component {
 
     render() {
 
-        const checkedAdmin = this.state.checkedAdmin;
+        const checkedAdmin = this.state.isAdmin;
         let selectAdmin = null;
         let pessoa = null;
 
@@ -129,7 +129,7 @@ class PessoaItem extends React.Component {
                 <FormControlLabel
                     control={
                         <Switch
-                            checked={this.state.checkedAdmin}
+                            checked={this.state.isAdmin}
                             onChange={(event, checked) => this.setState({checkedAdmin: checked})}
                         />
                     }
@@ -167,7 +167,7 @@ class PessoaItem extends React.Component {
         return (
             <div>
                 <Dialog open={this.props.abrir}>
-                    <DialogTitle>{this.state.pessoa.id ? `Editar ${this.state.pessoa.tipo === "usuario" ? 'Usuário' : 'Administrador'}` : `Adicionar ${this.state.checkedAdmin ? 'Administrador' : 'Usuário'}`}</DialogTitle>
+                    <DialogTitle>{this.state.pessoa.id ? `Editar ${this.state.pessoa.tipo === "usuario" ? 'Usuário' : 'Administrador'}` : `Adicionar ${this.state.isAdmin ? 'Administrador' : 'Usuário'}`}</DialogTitle>
                     <DialogContent>
                         {selectAdmin}
                         <br/>
