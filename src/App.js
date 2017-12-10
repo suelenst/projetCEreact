@@ -38,6 +38,7 @@ import {
 } from 'react-router-dom';
 import FormControlLabel from "material-ui/es/Form/FormControlLabel";
 import Switch from "material-ui/es/Switch/Switch";
+import ProjetoPagina from "./projeto/ProjetoPagina";
 
 
 const drawerWidth = 240;
@@ -146,7 +147,7 @@ class App extends Component {
     render() {
         const {classes, theme} = this.props;
 
-        let isAdmin = servicoLogin.logado().tipo=== "administrador";
+        let isAdmin = servicoLogin.logado().tipo === "administrador";
         let selectAdmin;
         let drawer = null;
         let avatar = null;
@@ -183,7 +184,7 @@ class App extends Component {
         const userDrawer = (
             <div>
                 <List className={classes.list}>
-                    <Link to="area" className={classes.link}>
+                    <Link to="projetos" className={classes.link}>
                         <ListItem button>
 
                             <ListItemIcon>
@@ -214,7 +215,7 @@ class App extends Component {
                                 </ListItem>
                             </Link>
 
-                            <Link to="pessoa" className={classes.link}>
+                            <Link to="projetos" className={classes.link}>
                                 <ListItem button className={classes.nested}>
                                     <ListItemIcon>
                                         <Icon>vpn_key</Icon>
@@ -320,6 +321,7 @@ class App extends Component {
                             <Route exact path="/" component={Home}/>
                             <Route path="/area" component={AreaPagina}/>
                             <Route path="/pessoa" component={PessoaPagina}/>
+                            <Route path="/projetos" component={ProjetoPagina}/>
                             <Route path="/login" render={() => <Login onLogin={() => this.setState({logado: true})}/>}/>
                         </main>
                     </div>
