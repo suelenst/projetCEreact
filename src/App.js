@@ -26,6 +26,7 @@ import {
     Link
 } from 'react-router-dom';
 import ProjetoPagina from "./projeto/ProjetoPagina";
+import Divider from "material-ui/es/Divider";
 
 
 const drawerWidth = 240;
@@ -176,17 +177,16 @@ class App extends Component {
                         <ListItem button>
 
                             <ListItemIcon>
-                                <Icon>bubble_chart</Icon>
+                                <Icon>home</Icon>
                             </ListItemIcon>
                             <ListItemText primary="Home"/>
 
                         </ListItem>
                     </Link>
-
-
+                    <Divider/>
                     <ListItem button onClick={this.handleClick}>
                         <ListItemIcon>
-                            <Icon>person</Icon>
+                            <Icon>folder</Icon>
                         </ListItemIcon>
                         <ListItemText inset primary="Projetos"/>
                         {this.state.open ? <ExpandLess /> : <ExpandMore />}
@@ -197,7 +197,7 @@ class App extends Component {
                             <Link to="meusProjetos" className={classes.link}>
                                 <ListItem button className={classes.nested}>
                                     <ListItemIcon>
-                                        <Icon>people</Icon>
+                                        <Icon>folder_shared</Icon>
                                     </ListItemIcon>
                                     <ListItemText primary="Meus Projetos"/>
                                 </ListItem>
@@ -206,7 +206,7 @@ class App extends Component {
                             <Link to="projetos" className={classes.link}>
                                 <ListItem button className={classes.nested}>
                                     <ListItemIcon>
-                                        <Icon>vpn_key</Icon>
+                                        <Icon>create_new_folder</Icon>
                                     </ListItemIcon>
                                     <ListItemText primary="Criar Novo Projeto"/>
                                 </ListItem>
