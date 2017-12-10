@@ -1,9 +1,5 @@
-import React, {Component} from 'react';
-
-
 /* eslint-disable flowtype/require-valid-file-annotation */
-
-
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
@@ -15,29 +11,20 @@ import Hidden from 'material-ui/Hidden';
 import MenuIcon from 'material-ui-icons/Menu';
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import Icon from 'material-ui/Icon';
-
-
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
-
-
 import Avatar from 'material-ui/Avatar';
-
 import AreaPagina from './area/AreaPagina';
 import PessoaPagina from './pessoa/PessoaPagina';
 import Home from './home/Home';
-
 import Login from "./login/Login";
 import servicoLogin from "./login/ServicoLogin";
-
 import {
     BrowserRouter as Router,
     Route,
     Link
 } from 'react-router-dom';
-import FormControlLabel from "material-ui/es/Form/FormControlLabel";
-import Switch from "material-ui/es/Switch/Switch";
 import ProjetoPagina from "./projeto/ProjetoPagina";
 
 
@@ -148,6 +135,7 @@ class App extends Component {
         const {classes, theme} = this.props;
 
         let isAdmin = servicoLogin.logado().tipo === "administrador";
+        const id = servicoLogin.logado().id;
         let selectAdmin;
         let drawer = null;
         let avatar = null;
@@ -206,7 +194,7 @@ class App extends Component {
 
                     <Collapse component="li" in={this.state.open} transitionDuration="auto" unmountOnExit>
                         <List disablePadding>
-                            <Link to="projetos" className={classes.link}>
+                            <Link to="meusProjetos" className={classes.link}>
                                 <ListItem button className={classes.nested}>
                                     <ListItemIcon>
                                         <Icon>people</Icon>
@@ -264,7 +252,6 @@ class App extends Component {
             avatar = avatarVisit;
         }
 
-
         return (
             <Router>
                 <div className={classes.root}>
@@ -321,7 +308,9 @@ class App extends Component {
                             <Route exact path="/" component={Home}/>
                             <Route path="/area" component={AreaPagina}/>
                             <Route path="/pessoa" component={PessoaPagina}/>
-                            <Route path="/projetos" component={ProjetoPagina}/>
+                            <Route path="/projetos" render={() => <ProjetoPagina id=""/>}/>
+                            <Route path="/meusProjetos"
+                                   render={() => <ProjetoPagina id={"/coordenador/" + id}/>}/>
                             <Route path="/login" render={() => <Login onLogin={() => this.setState({logado: true})}/>}/>
                         </main>
                     </div>
