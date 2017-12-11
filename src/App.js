@@ -27,6 +27,7 @@ import {
 } from 'react-router-dom';
 import ProjetoPagina from "./projeto/ProjetoPagina";
 import Divider from "material-ui/es/Divider";
+import ProjetoDetalhe from "./projeto/ProjetoDetalhe";
 
 
 const drawerWidth = 240;
@@ -120,6 +121,7 @@ class App extends Component {
             logado: servicoLogin.logado(),
             mobileOpen: false,
             open: false,
+            projeto: {},
         };
     }
 
@@ -132,12 +134,16 @@ class App extends Component {
         this.setState({open: !this.state.open});
     };
 
+    setProjeto(projeto) {
+        this.setState({projeto: projeto});
+    }
+
     render() {
         const {classes, theme} = this.props;
 
         let isAdmin = servicoLogin.logado().tipo === "administrador";
         const id = servicoLogin.logado().id;
-        let selectAdmin;
+        let selectAdmin = null;
         let drawer = null;
         let avatar = null;
 
@@ -308,10 +314,16 @@ class App extends Component {
                             <Route exact path="/" component={Home}/>
                             <Route path="/area" component={AreaPagina}/>
                             <Route path="/pessoa" component={PessoaPagina}/>
-                            <Route path="/projetos" render={() => <ProjetoPagina id=""/>}/>
+                            <Route path="/projetos"
+                                   render={() => <ProjetoPagina id="" setProjeto={(projeto) => {
+                                       this.setProjeto(projeto)
+                                   }}/>}/>
                             <Route path="/meusProjetos"
-                                   render={() => <ProjetoPagina id={"/coordenador/" + id}/>}/>
+                                   render={() => <ProjetoPagina id={"/coordenador/" + id} setProjeto={(projeto) => {
+                                       this.setProjeto(projeto)
+                                   }}/>}/>
                             <Route path="/login" render={() => <Login onLogin={() => this.setState({logado: true})}/>}/>
+                            <Route path="/maisDetalhes" render={() => <ProjetoDetalhe projeto={this.state.projeto}/>}/>
                         </main>
                     </div>
                 </div>

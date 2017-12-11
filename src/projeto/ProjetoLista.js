@@ -6,6 +6,9 @@ import Button from "material-ui/es/Button/Button";
 import Typography from "material-ui/es/Typography/Typography";
 import {withStyles} from "material-ui";
 import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
+import ProjetoPagina from "./ProjetoPagina";
+import ProjetoDetalhe from "./ProjetoDetalhe";
 
 const styles = theme => ({
     card: {
@@ -25,11 +28,17 @@ const styles = theme => ({
         marginBottom: 12,
         color: theme.palette.text.secondary,
     },
+    date: {
+        color: theme.palette.text.secondary,
+    },
+    link: {
+        textDecoration: 'none',
+    },
 });
 
 class ProjetoLista extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -39,7 +48,6 @@ class ProjetoLista extends React.Component {
         if (!this.props.pagina.content) {
             return <div>Não há nenhum projeto cadastrado no sistema.<br/><br/><br/></div>;
         } else {
-
             return <div>
                 {this.props.pagina.content.map((projeto) => {
                     return (
@@ -52,13 +60,20 @@ class ProjetoLista extends React.Component {
                                     <Typography type="headline" component="h2">
                                         {projeto.nome}
                                     </Typography>
-                                    <Typography className={classes.pos}>{projeto.coordenadorProjeto.nome}</Typography>
+                                    <Typography className={classes.pos}>{projeto.dataInicio}
+                                        - {projeto.coordenadorProjeto.nome}</Typography>
                                     <Typography component="p">
                                         {projeto.resumo}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button dense>Mais Detalhes</Button>
+                                    <Link to="maisDetalhes" className={classes.link}>
+                                        <Button
+                                            onClick={() => {
+                                                this.props.setProjeto(projeto);
+                                            }}
+                                            dense style={{color: '#51B0FF'}}>Mais Detalhes</Button>
+                                    </Link>
                                 </CardActions>
                             </Card>
                             <br/>

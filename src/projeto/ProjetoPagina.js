@@ -46,6 +46,9 @@ export default class ProjetoPagina extends React.Component {
             <Grid item sm={12} md={10}>
                 <h2>{this.props.id === "" ? `Projetos` : `Meus Projetos`}</h2>
                 <ProjetoLista
+                    setProjeto={(projeto) => {
+                        this.props.setProjeto(projeto)
+                    }}
                     pagina={this.state.pagina}
                 />
             </Grid>
