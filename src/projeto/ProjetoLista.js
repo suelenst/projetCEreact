@@ -7,8 +7,6 @@ import Typography from "material-ui/es/Typography/Typography";
 import {withStyles} from "material-ui";
 import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
-import ProjetoPagina from "./ProjetoPagina";
-import ProjetoDetalhe from "./ProjetoDetalhe";
 
 const styles = theme => ({
     card: {
@@ -77,7 +75,8 @@ class ProjetoLista extends React.Component {
                                 </CardActions>
                             </Card>
                             <br/>
-                        </div>)
+                        </div>
+                    )
                 })}
             </div>;
         }

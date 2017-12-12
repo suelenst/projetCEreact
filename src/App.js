@@ -28,6 +28,7 @@ import {
 import ProjetoPagina from "./projeto/ProjetoPagina";
 import Divider from "material-ui/es/Divider";
 import ProjetoDetalhe from "./projeto/ProjetoDetalhe";
+import ProjetoItem from "./projeto/ProjetoItem";
 
 
 const drawerWidth = 240;
@@ -120,7 +121,7 @@ class App extends Component {
         this.state = {
             logado: servicoLogin.logado(),
             mobileOpen: false,
-            open: false,
+            open: true,
             projeto: {},
         };
     }
@@ -209,7 +210,7 @@ class App extends Component {
                                 </ListItem>
                             </Link>
 
-                            <Link to="projetos" className={classes.link}>
+                            <Link to="novoProjeto" className={classes.link}>
                                 <ListItem button className={classes.nested}>
                                     <ListItemIcon>
                                         <Icon>create_new_folder</Icon>
@@ -327,6 +328,7 @@ class App extends Component {
                                    }}/>}/>
                             <Route path="/login" render={() => <Login onLogin={() => this.setState({logado: true})}/>}/>
                             <Route path="/maisDetalhes" render={() => <ProjetoDetalhe projeto={this.state.projeto}/>}/>
+                            <Route path="/novoProjeto" component={ProjetoItem}/>
                         </main>
                     </div>
                 </div>

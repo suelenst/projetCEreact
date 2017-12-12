@@ -1,8 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 import base64 from "base-64/base64.js";
 import servicoLogin from "./login/ServicoLogin";
 
@@ -74,22 +70,7 @@ export default class ServicoRest {
 
 
     listarPaginado(pagina, sucesso, erro) {
-        /* 
-         this.listarPaginado(2,
-         (resultado)=>{
-         console.log(resultado);
-         }, (erro)=>{
-         console.log("Deu M!");
-         console.log(erro);
-         
-         }  
-         
-         );    
-         ((teste)=>{console.log(teste)})(
-         "carlos"); 
-         
-         log("carlos ");
-         */
+
 
         let trataFetch = (resultado) => {
             this.url;

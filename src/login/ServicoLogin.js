@@ -13,14 +13,14 @@ class ServicoLogin {
 
         fetch(`api/pessoas/login`, {
                 headers: new Headers({
-                    'Authorization':this.getAuthorization()
+                    'Authorization': this.getAuthorization()
                 }),
                 method: "GET"
             }
         ).then((resposta) => {
             if (resposta.ok) {
                 resposta.json().then((dados) => {
-                    this.token=resposta.headers.get("token");
+                    this.token = resposta.headers.get("token");
                     this.dados = dados;
                     sucesso(dados);
                 })
@@ -33,13 +33,14 @@ class ServicoLogin {
     }
 
     getAuthorizationGet() {
-        return "token="+this.token;
-    } 
+        return "token=" + this.token;
+    }
+
     getAuthorization() {
-        if(this.token){
-            return "Bearer "+this.token;
-        } else 
-            return "Basic "+base64.encode(this.usuario+":"+this.senha);    
+        if (this.token) {
+            return "Bearer " + this.token;
+        } else
+            return "Basic " + base64.encode(this.usuario + ":" + this.senha);
     }
 
     logado() {

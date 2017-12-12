@@ -6,13 +6,59 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Button  from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
+import {withStyles} from "material-ui";
+import Card from "../../node_modules/material-ui/Card/Card";
+import CardContent from "material-ui/es/Card/CardContent";
+import CardActions from "material-ui/es/Card/CardActions";
+import Typography from "material-ui/es/Typography/Typography";
+import PropTypes from 'prop-types';
 
-export default class ProjetoItem extends React.Component {
+
+const styles = theme => ({
+    card: {
+        minWidth: 275,
+    },
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
+    title: {
+        fontSize: 18,
+        color: theme.palette.text.primary,
+    },
+    pos: {
+        marginBottom: 12,
+        color: theme.palette.text.secondary,
+    },
+    date: {
+        color: theme.palette.text.secondary,
+    },
+    link: {
+        textDecoration: 'none',
+    },
+    textFieldInput: {
+        borderRadius: 4,
+        background: theme.palette.common.white,
+        border: '1px solid #ced4da',
+        fontSize: 16,
+        padding: '10px 12px',
+        width: 'calc(100% - 24px)',
+        transition: theme.transitions.create(['border-color', 'box-shadow']),
+        '&:focus': {
+            borderColor: '#80bdff',
+            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+        },
+    },
+});
+
+
+class ProjetoItem extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            projeto: this.props.projeto
+            projeto: {},
         }
     }
 
@@ -20,51 +66,128 @@ export default class ProjetoItem extends React.Component {
         this.setState({projeto: proximoEstado.projeto});
     }
 
-    setNome(valor) {
+    setValor(campo, valor) {
         this.setState(
             (anterior) => {
-                anterior.projeto.nome = valor;
+                anterior.projeto[campo] = valor;
                 return anterior;
             }
         );
     }
 
-
     confirmar() {
         if (this.state.projeto.nome) {
-            if (this.state.projeto.id) {
-                this.props.editar(this.state.projeto.id, this.state.projeto);
-            }
-            else {
-                this.props.inserir(this.state.projeto);
-            }
+            alert("Nome ok");
         } else {
             alert("Preencha todos os campos!");
         }
     }
 
-
     render() {
-        return <Dialog open={this.props.abrir}>
-            <DialogTitle>{this.state.projeto.id ? `Editar projeto ${this.state.area.nome}` : "Novo projeto"}</DialogTitle>
-            <DialogContent>
-                <TextField label="Nome"
-                           value={this.state.projeto.nome}
-                           onChange={(evento) => this.setNome(evento.target.value)}/><br/><br/>
-            </DialogContent>
+        const {classes} = this.props;
 
-            <DialogActions>
-                <Button onClick={() => {
-                    this.props.cancelar()
-                }} color="primary">
-                    Cancelar
-                </Button>
-                <Button onClick={(evento) => {
-                    this.confirmar()
-                }} color="primary">
-                    Confirmar
-                </Button>
-            </DialogActions>
-        </Dialog >;
+        return <div>
+            <div>
+                <Typography type="headline" component="h2">Novo projeto</Typography>
+                <br/>
+                <Card>
+                    <CardContent>
+
+                        <form onSubmit={(event) => {
+                            event.preventDefault();
+                            this.confirmar()
+                        }}>
+                            {/* TODO:
+                             > select area interesse
+                             > setar coord. no envio
+                             */}
+
+                            <Typography className={classes.title}>Nome</Typography>
+                            <TextField
+                                value={this.state.projeto.nome}
+                                onChange={(e) => this.setValor("nome", e.target.value)}
+                                style={{width: "100%"}}
+                                type="text"
+                                margin="normal" required focused
+                                InputProps={{
+                                    disableUnderline: true,
+                                    classes: {
+                                        input: classes.textFieldInput,
+                                    },
+                                }}
+                            />
+                            <br/><br/>
+
+                            <Typography className={classes.title}>Resumo</Typography>
+                            <TextField
+                                value={this.state.projeto.resumo}
+                                onChange={(e) => this.setValor("resumo", e.target.value)}
+                                style={{width: "100%"}}
+                                type="text"
+                                margin="normal" required focused
+                                multiline={true}
+                                rows="5"
+                                InputProps={{
+                                    disableUnderline: true,
+                                    classes: {
+                                        input: classes.textFieldInput,
+                                    },
+                                }}
+                            />
+                            <br/><br/>
+
+                            <Typography className={classes.title}>Descrição</Typography>
+                            <TextField
+                                value={this.state.projeto.descricao}
+                                onChange={(e) => this.setValor("descricao", e.target.value)}
+                                style={{width: "100%"}}
+                                type="text"
+                                margin="normal" required focused
+                                multiline={true}
+                                rows="12"
+                                InputProps={{
+                                    disableUnderline: true,
+                                    classes: {
+                                        input: classes.textFieldInput,
+                                    },
+                                }}
+                            />
+                            <br/>
+
+                            <div style={{
+                                visibility: this.state.texto ? "" : "hidden",
+                                width: "100%",
+                                textAlign: "center"
+                            }}>
+
+                            <Typography color="error">{this.state.texto} <br/> </Typography></div>
+                            <br/>
+
+                        </form>
+
+                    </CardContent>
+                    <CardActions>
+                        <Button onClick={() => {
+                            this.props.cancelar()
+                        }} color="primary">
+                            Cancelar
+                        </Button>
+                        <Button onClick={() => {
+                            this.confirmar()
+                        }} color="primary">
+                            Confirmar
+                        </Button>
+                    </CardActions>
+                </Card>
+                <br/>
+            </div>
+        </div>;
+
     }
-} 
+}
+
+ProjetoItem.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(ProjetoItem);
