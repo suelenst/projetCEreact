@@ -327,7 +327,7 @@ class App extends Component {
                                        this.setProjeto(projeto)
                                    }}/>}/>
                             <Route path="/login" render={() => <Login onLogin={() => this.setState({logado: true})}/>}/>
-                            <Route path="/maisDetalhes" render={() => <ProjetoDetalhe projeto={this.state.projeto}/>}/>
+                            <Route path="/maisDetalhes" render={() => <ProjetoDetalhe id={id} projeto={this.state.projeto}/>}/>
                             <Route path="/novoProjeto" component={ProjetoItem}/>
                         </main>
                     </div>

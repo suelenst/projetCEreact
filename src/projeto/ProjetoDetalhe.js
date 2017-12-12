@@ -42,6 +42,9 @@ class ProjetoDetalhe extends React.Component {
     render() {
         const {classes} = this.props;
         const projeto = this.props.projeto;
+        const idUsuario = this.props.id;
+
+        // ja tem o id do usuario autenticado, falta comparar com os do projeto para saber se e integrante ou coordenador
 
         if (!projeto) {
             return <div>Projeto não encontrado.<br/><br/><br/></div>;
