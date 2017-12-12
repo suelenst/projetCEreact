@@ -232,8 +232,11 @@ class App extends Component {
 
         const avatarUser = (
             <Link to="/" className={classes.link}>
-                <Avatar src="perfil.png" className={classes.avatar}>
+                <Avatar src={"/api/pessoas/" + id + "/foto" } className={classes.avatar}>                
+                                
+                      
                 </Avatar>
+                
             </Link>
         );
 

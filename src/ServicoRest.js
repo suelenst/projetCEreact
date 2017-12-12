@@ -15,7 +15,7 @@ export default class ServicoRest {
     apagar(id, sucesso, erro) {
          fetch(`${this.url}/${id}`,{
              headers: new Headers({
-                'Authorization': 'Basic ' + servicoLogin.getAuthorization()
+                'Authorization':servicoLogin.getAuthorization()
             }),
             method:"DELETE"
         }
@@ -35,7 +35,7 @@ export default class ServicoRest {
         fetch(this.url, {
             method: "POST",
             headers: new Headers({
-                'Authorization': 'Basic ' + servicoLogin.getAuthorization(),
+                'Authorization': servicoLogin.getAuthorization(),
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify(item)
@@ -56,7 +56,7 @@ export default class ServicoRest {
         fetch(`${this.url}/${id}`, {
             method: "PUT",
             headers: new Headers({
-                'Authorization': 'Basic ' + servicoLogin.getAuthorization(),
+                'Authorization': servicoLogin.getAuthorization(),
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify(item)
@@ -104,7 +104,7 @@ export default class ServicoRest {
 
         fetch(this.url + "?pagina=" + pagina, {
                         headers: new Headers({
-                'Authorization': 'Basic ' + servicoLogin.getAuthorization()
+                'Authorization': servicoLogin.getAuthorization(),
               
             }),
             method: "GET"
