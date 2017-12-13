@@ -70,7 +70,11 @@ class ProjetoLista extends React.Component {
                                             onClick={() => {
                                                 this.props.setProjeto(projeto);
                                             }}
-                                            dense style={{color: '#51B0FF'}}>Mais Detalhes</Button>
+                                            dense
+                                            style={{backgroundColor: '#51B0FF', color: '#FFFFFF'}}
+                                        >
+                                            Mais Detalhes
+                                        </Button>
                                     </Link>
                                 </CardActions>
                             </Card>

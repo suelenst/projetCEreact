@@ -12,6 +12,10 @@ import CardContent from "material-ui/es/Card/CardContent";
 import CardActions from "material-ui/es/Card/CardActions";
 import Typography from "material-ui/es/Typography/Typography";
 import PropTypes from 'prop-types';
+import Select from "material-ui/es/Select/Select";
+import MenuItem from "material-ui/es/Menu/MenuItem";
+import Input from "material-ui/es/Input/Input";
+import InputLabel from "material-ui/es/Input/InputLabel";
 
 
 const styles = theme => ({
@@ -52,7 +56,6 @@ const styles = theme => ({
     },
 });
 
-
 class ProjetoItem extends React.Component {
 
     constructor(props) {
@@ -77,7 +80,15 @@ class ProjetoItem extends React.Component {
 
     confirmar() {
         if (this.state.projeto.nome) {
-            alert("Nome ok");
+            if (this.state.projeto.resumo) {
+                if (this.state.projeto.descricao) {
+                    alert("Tudo ok");
+                } else {
+                    alert("Falta descricao");
+                }
+            } else {
+                alert("Falta resumo");
+            }
         } else {
             alert("Preencha todos os campos!");
         }
@@ -101,6 +112,18 @@ class ProjetoItem extends React.Component {
                              > select area interesse
                              > setar coord. no envio
                              */}
+
+                            {/*<Select*/}
+                                {/*value={this.state.projeto.area ? this.state.projeto.area : ""}*/}
+                                {/*onChange={(evento) => this.setValor("tipoVinculo", evento.target.value)}*/}
+                                {/*input={<Input id="tipoVinculo"/>}*/}
+                            {/*>*/}
+                                {/*<MenuItem value=""> </MenuItem>*/}
+                                {/*<MenuItem value={'aluno'}>Aluno</MenuItem>*/}
+                                {/*<MenuItem value={'professor'}>Professor</MenuItem>*/}
+                                {/*<MenuItem value={'servidorTecnico'}>Servidor Técnico</MenuItem>*/}
+                            {/*</Select>*/}
+
 
                             <Typography className={classes.title}>Nome</Typography>
                             <TextField
@@ -160,7 +183,7 @@ class ProjetoItem extends React.Component {
                                 textAlign: "center"
                             }}>
 
-                            <Typography color="error">{this.state.texto} <br/> </Typography></div>
+                                <Typography color="error">{this.state.texto} <br/> </Typography></div>
                             <br/>
 
                         </form>
@@ -169,12 +192,12 @@ class ProjetoItem extends React.Component {
                     <CardActions>
                         <Button onClick={() => {
                             this.props.cancelar()
-                        }} color="primary">
+                        }} style={{backgroundColor: '#51B0FF', color: '#FFFFFF'}}>
                             Cancelar
                         </Button>
                         <Button onClick={() => {
                             this.confirmar()
-                        }} color="primary">
+                        }} style={{backgroundColor: '#51B0FF', color: '#FFFFFF'}}>
                             Confirmar
                         </Button>
                     </CardActions>

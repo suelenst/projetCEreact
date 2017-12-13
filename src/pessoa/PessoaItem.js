@@ -111,7 +111,7 @@ class PessoaItem extends React.Component {
                 alert("Prefixo de Email inválido");
             }
         } else {
-            
+
         }
 
 
@@ -120,7 +120,7 @@ class PessoaItem extends React.Component {
 
     render() {
 
-        const checkedAdmin = this.state.isAdmin;
+        const checkedAdmin = this.state.checkedAdmin;
         let selectAdmin = null;
         let pessoa = null;
 
@@ -129,7 +129,7 @@ class PessoaItem extends React.Component {
                 <FormControlLabel
                     control={
                         <Switch
-                            checked={this.state.isAdmin}
+                            checked={this.state.checkedAdmin}
                             onChange={(event, checked) => this.setState({checkedAdmin: checked})}
                         />
                     }

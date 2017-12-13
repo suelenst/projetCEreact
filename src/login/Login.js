@@ -34,6 +34,7 @@ export default class Login extends Component {
 
     login() {
         this.setState({texto: ""});
+        
         servicoLogin.login(
             this.state.login.usuario,
             this.state.login.senha,

@@ -29,6 +29,7 @@ import ProjetoPagina from "./projeto/ProjetoPagina";
 import Divider from "material-ui/es/Divider";
 import ProjetoDetalhe from "./projeto/ProjetoDetalhe";
 import ProjetoItem from "./projeto/ProjetoItem";
+import Redirect from "react-router-dom/es/Redirect";
 
 
 const drawerWidth = 240;
@@ -144,7 +145,6 @@ class App extends Component {
 
         let isAdmin = servicoLogin.logado().tipo === "administrador";
         const id = servicoLogin.logado().id;
-        let selectAdmin = null;
         let drawer = null;
         let avatar = null;
 
@@ -233,11 +233,11 @@ class App extends Component {
 
         const avatarUser = (
             <Link to="/" className={classes.link}>
-                <Avatar src={"/api/pessoas/" + id + "/foto" } className={classes.avatar}>                
-                                
-                      
+                <Avatar src={"/api/pessoas/" + id + "/foto" } className={classes.avatar}>
+
+
                 </Avatar>
-                
+
             </Link>
         );
 
@@ -303,7 +303,6 @@ class App extends Component {
                             </Drawer>
                         </Hidden>
                         <Hidden mdDown implementation="css">
-                            <ListItem>{selectAdmin}</ListItem>
                             <Drawer
                                 type="permanent"
                                 open
@@ -326,8 +325,10 @@ class App extends Component {
                                    render={() => <ProjetoPagina id={"/coordenador/" + id} setProjeto={(projeto) => {
                                        this.setProjeto(projeto)
                                    }}/>}/>
-                            <Route path="/login" render={() => <Login onLogin={() => this.setState({logado: true})}/>}/>
-                            <Route path="/maisDetalhes" render={() => <ProjetoDetalhe id={id} projeto={this.state.projeto}/>}/>
+                            <Route path="/login" render={() => this.state.logado ? <Redirect to="/projetos"/>
+                                : <Login onLogin={() => this.setState({logado: true})}/>}/>
+                            <Route path="/maisDetalhes"
+                                   render={() => <ProjetoDetalhe id={id} projeto={this.state.projeto}/>}/>
                             <Route path="/novoProjeto" component={ProjetoItem}/>
                         </main>
                     </div>

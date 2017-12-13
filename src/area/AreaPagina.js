@@ -16,7 +16,7 @@ export default class AreaPagina extends React.Component {
             pagina: {},
             exibirAreaItem: false,
             area: {nome: "teste"}
-        }
+        };
 
         this.areaServico = new AreaServico();
         this.mudarPagina(0);

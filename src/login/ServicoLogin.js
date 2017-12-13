@@ -10,7 +10,6 @@ class ServicoLogin {
         this.usuario = usuario;
         this.senha = senha;
 
-
         fetch(`api/pessoas/login`, {
                 headers: new Headers({
                     'Authorization': this.getAuthorization()
