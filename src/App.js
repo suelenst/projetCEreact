@@ -233,7 +233,7 @@ class App extends Component {
 
         const avatarUser = (
             <Link to="/" className={classes.link}>
-                <Avatar src={"/api/pessoas/" + id + "/foto" } className={classes.avatar}>
+                <Avatar src={"/api/pessoas/" + id + "/foto?" + servicoLogin.getAuthorizationGet() } className={classes.avatar}>                
 
 
                 </Avatar>
