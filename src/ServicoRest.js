@@ -92,5 +92,5 @@ export default class ServicoRest {
         }).then(trataFetch);
 
     }
-
+    
 }

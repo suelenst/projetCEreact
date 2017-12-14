@@ -129,7 +129,6 @@ class PessoaUsuario extends React.Component {
         let formSenha =  null;
         
         if (!this.state.pessoa.id) {
-
             
             formSenha = 
             
@@ -153,25 +152,10 @@ class PessoaUsuario extends React.Component {
                         }
                     >
                     </Input>
-                </FormControl>
-            
-            
+                </FormControl>    
             
         } else {
-            this.state.pessoa.novaSenha = "senha";
-        
-            formSenha = 
-            <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="novaSenha">Senha</InputLabel>
-                    <Input
-                        type='password'
-                        disable
-                        value={this.state.pessoa.novaSenha}
-       
-                    >
-                    </Input>
-                </FormControl>
-            
+            this.state.pessoa.novaSenha = "senha";         
         }
         let curso =
             <TextField

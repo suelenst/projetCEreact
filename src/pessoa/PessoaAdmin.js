@@ -133,11 +133,9 @@ class PessoaAdmin extends React.Component {
 
     render() {
         const {classes} = this.props;
-                let formSenha =  null;
+        let formSenha =  null;
         
-        if (!this.state.pessoa.id) {
-
-            
+        if (!this.state.pessoa.id) {            
             formSenha = 
             
             <FormControl className={classes.formControl} required>
@@ -160,25 +158,11 @@ class PessoaAdmin extends React.Component {
                         }
                     >
                     </Input>
-                </FormControl>
-            
+                </FormControl>           
             
             
         } else {
-            this.state.pessoa.novaSenha = "senha";
-        
-            formSenha = 
-            <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="novaSenha">Senha</InputLabel>
-                    <Input
-                        type='password'
-                        disable
-                        value={this.state.pessoa.novaSenha}
-       
-                    >
-                    </Input>
-                </FormControl>
-            
+            this.state.pessoa.novaSenha = "senha";            
         }
         
 

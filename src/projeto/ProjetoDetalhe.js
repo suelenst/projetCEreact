@@ -7,6 +7,8 @@ import Typography from "material-ui/es/Typography/Typography";
 import {withStyles} from "material-ui";
 import PropTypes from 'prop-types';
 
+import servicoLogin from "../login/ServicoLogin";  
+
 const styles = theme => ({
     card: {
         minWidth: 275,
@@ -31,6 +33,10 @@ const styles = theme => ({
         marginBottom: 12,
         color: theme.palette.text.secondary,
     },
+    button: {
+        background: '#51B0FF', 
+        color: '#ffffff',
+    }
 });
 
 class ProjetoDetalhe extends React.Component {
@@ -38,21 +44,79 @@ class ProjetoDetalhe extends React.Component {
     constructor(props) {
         super(props);
     }
+        
+    solicitarPart(id, idu) {
 
+         fetch("/api/projetos/" + id + "/" + idu, {
+            method: "PUT",
+
+            headers: new Headers({
+                'Authorization': servicoLogin.getAuthorization()
+
+            }),
+        }).then((resultado) => {
+            
+        
+        if (resultado.ok) {
+           console.log("Mudou!");               
+
+        } else {
+            resultado.json().then(
+                    (resultadoErro) => console.log(resultadoErro)
+            )
+        }
+
+        });
+
+    }
+    
+     
     render() {
         const {classes} = this.props;
         const projeto = this.props.projeto;
         const idUsuario = this.props.id;
-
+        let participar =  null;
+        
         function reformatDate(dateStr) {
             var dArr = dateStr.split("-");  // ex input "2010-01-18"
             return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0]; //ex out: "18/01/10"
-        }
+        }    
         // ja tem o id do usuario autenticado, falta comparar com os do projeto para saber se e integrante ou coordenador
+        function pedidoPart(arr, idu) {
+            
+            if (arr === null){
+                return false;
+            }
+        
+            for (var i = 0; i < arr.length; i++) {
+                
+                console.log(arr[i].id + " usuario "+ idu);
+                if (arr[i].id === idu) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         if (!projeto) {
             return <div>Projeto não encontrado.<br/><br/><br/></div>;
         } else {
+            
+            if (projeto.coordenadorProjeto.id !== idUsuario && 
+                    !pedidoPart(projeto.solicitantesProjeto, idUsuario) &&
+                    !pedidoPart(projeto.integrantesProjeto, idUsuario) ) {  
+                
+                participar =
+
+                <Button className={classes.button} onClick={(event) => {
+                    event.preventDefault();
+                    this.solicitarPart(projeto.id, idUsuario);
+                }}>
+                    Solicitar Participação
+                </Button>
+            }
+        
             return <div>
                 <div>
                     <Card>
@@ -84,8 +148,15 @@ class ProjetoDetalhe extends React.Component {
                             <Typography component="p">
                                 {projeto.descricao}
                             </Typography>
-                            <br/>
+                            
+                            <br/><br/><br/>
+                            
+                            {participar}
+                      
+                            <br/><br/><br/>
+     
                         </CardContent>
+
                         {/*<CardActions>*/}
                         {/*<Button dense>Mais Detalhes</Button>*/}
                         {/*</CardActions>*/}
