@@ -42,6 +42,11 @@ class ProjetoLista extends React.Component {
 
     render() {
         const {classes} = this.props;
+        
+        function reformatDate(dateStr) {
+            var dArr = dateStr.split("-");  // ex input "2010-01-18"
+            return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0]; //ex out: "18/01/10"
+        }
 
         if (!this.props.pagina.content) {
             return <div>Não há nenhum projeto cadastrado no sistema.<br/><br/><br/></div>;
@@ -58,7 +63,7 @@ class ProjetoLista extends React.Component {
                                     <Typography type="headline" component="h2">
                                         {projeto.nome}
                                     </Typography>
-                                    <Typography className={classes.pos}>{projeto.dataInicio}
+                                    <Typography className={classes.pos}>{reformatDate(projeto.dataInicio)}
                                         - {projeto.coordenadorProjeto.nome}</Typography>
                                     <Typography component="p">
                                         {projeto.resumo}

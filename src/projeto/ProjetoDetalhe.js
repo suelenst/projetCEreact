@@ -44,6 +44,10 @@ class ProjetoDetalhe extends React.Component {
         const projeto = this.props.projeto;
         const idUsuario = this.props.id;
 
+        function reformatDate(dateStr) {
+            var dArr = dateStr.split("-");  // ex input "2010-01-18"
+            return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0]; //ex out: "18/01/10"
+        }
         // ja tem o id do usuario autenticado, falta comparar com os do projeto para saber se e integrante ou coordenador
 
         if (!projeto) {
@@ -62,7 +66,7 @@ class ProjetoDetalhe extends React.Component {
                                 {projeto.nome}
                             </Typography>
                             <br/>
-                            <Typography className={classes.pos}>{projeto.dataInicio}</Typography>
+                            <Typography className={classes.pos}>{reformatDate(projeto.dataInicio)}</Typography>
                             <br/>
                             <Typography className={classes.title}>Coordenador</Typography>
                             <Typography component="p">{projeto.coordenadorProjeto.nome}</Typography>
