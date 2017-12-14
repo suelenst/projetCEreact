@@ -6,6 +6,8 @@ import Button from "material-ui/es/Button/Button";
 import Typography from "material-ui/es/Typography/Typography";
 import {withStyles} from "material-ui";
 import PropTypes from 'prop-types';
+import IconButton from 'material-ui/IconButton';
+import Tooltip from 'material-ui/Tooltip';
 
 import servicoLogin from "../login/ServicoLogin";  
 import ProjetoServico from "./ProjetoServico";
@@ -23,6 +25,7 @@ import Table, {
 
 import Redirect from "react-router-dom/es/Redirect";
 
+import Avatar from 'material-ui/Avatar';
 
 const styles = theme => ({
     card: {
@@ -51,6 +54,17 @@ const styles = theme => ({
     button: {
         background: '#51B0FF', 
         color: '#ffffff',
+    },
+    
+    avatar: {
+        color: '#51B0FF',
+        backgroundColor: '#ffffff',
+        marginLeft: -12,
+        marginRight: 20,
+
+    },
+    img: {
+        width: "300px", 
     }
 });
 
@@ -96,49 +110,57 @@ class ProjetoDetalhe extends React.Component {
             if (projeto.coordenadorProjeto.id === idUsuario) {
                 
             solicitantes = 
+                <div>
+                    <Typography className={classes.title}>Solicitantes do Projeto</Typography>
+                    
                     <Table>
-                                 <TableHead>
-                                    <TableRow>
-                                        <TableCell>Nome</TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {projeto.solicitantesProjeto.map((solicitantes) => {
-                                    return <TableRow hover="true" key={solicitantes.id}>
-                                            <TableCell>{solicitantes.nome}</TableCell>
+                             <TableHead>
+                                <TableRow>
+                                    <TableCell>Nome</TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {projeto.solicitantesProjeto.map((solicitantes) => {
+                                return <TableRow hover="true" key={solicitantes.id}>
+                                        <TableCell>
+                                            {solicitantes.nome} 
 
-                                            <TableCell>
-                                                <Button className={classes.button} onClick={(event) => {
-                                                    event.preventDefault();
-                                                    this.projetoServico.aceitarPart(projeto.id, solicitantes.id);
-                                                }}>
-                                                    Aceitar
-                                                </Button>  
-                                            </TableCell>
-                                            
-                                            <TableCell>
-                                                <Button className={classes.button} onClick={(event) => {
-                                                    event.preventDefault();
-                                                    this.projetoServico.negarPart(projeto.id, solicitantes.id);
-                                                }}>
-                                                    Negar
-                                                </Button>  
-                                            </TableCell>
-                                            
-                                            
-                                    </TableRow>;
-                                    })}
 
-                                </TableBody>
-                                
-                                <TableFooter>
-                                </TableFooter>
-                            
-                            </Table>
-                
-            
+
+                                        </TableCell>
+
+                                        <TableCell>
+                                            <Button className={classes.button} onClick={(event) => {
+                                                event.preventDefault();
+                                                this.projetoServico.aceitarPart(projeto.id, solicitantes.id);
+                                            }}>
+                                                Aceitar
+                                            </Button>  
+                                        </TableCell>
+
+                                        <TableCell>
+                                            <Button className={classes.button} onClick={(event) => {
+                                                event.preventDefault();
+                                                this.projetoServico.negarPart(projeto.id, solicitantes.id);
+                                            }}>
+                                                Negar
+                                            </Button>  
+                                        </TableCell>
+
+
+                                </TableRow>;
+                                })}
+
+                            </TableBody>
+
+                            <TableFooter>
+                            </TableFooter>
+
+                        </Table>
+
+                </div>
                 
             } else {
                 if  ( !pedidoPart(projeto.solicitantesProjeto, idUsuario)  &&
@@ -146,15 +168,19 @@ class ProjetoDetalhe extends React.Component {
                   
                 
                     participar =
+                        <div>
+                            <br/>
+                            <Button className={classes.button} onClick={(event) => {
+                                event.preventDefault();
+                                this. projetoServico.solicitarPart(projeto.id, idUsuario);
+                            }} >
+                                Solicitar Participação
 
-                        <Button className={classes.button} onClick={(event) => {
-                            event.preventDefault();
-                            this. projetoServico.solicitarPart(projeto.id, idUsuario);
-                            this.state.projeto
-                        }} >
-                            Solicitar Participação
+                            </Button>
+                            
+                            <br/><br/><br/>
+                        </div>
 
-                        </Button>
                 
                 }
                 
@@ -177,18 +203,34 @@ class ProjetoDetalhe extends React.Component {
                                 {projeto.nome}
                             </Typography>
                             <br/>
-                            <Typography className={classes.pos}>{reformatDate(projeto.dataInicio)}</Typography>
-                            <br/>
+                            <Typography className={classes.pos}>{reformatDate(projeto.dataInicio)}</Typography>                           
+                            
+                            {participar}
+                            
+                            
                             <Typography className={classes.title}>Coordenador</Typography>
-                            <Typography component="p">{projeto.coordenadorProjeto.nome}</Typography>
+
+                            <Tooltip title={projeto.coordenadorProjeto.nome} >      
+                                <Avatar src={"/api/pessoas/" + projeto.coordenadorProjeto.id + "/foto?" + servicoLogin.getAuthorizationGet() } className={classes.avatar} >       
+                                </Avatar>                          
+                            </Tooltip>
+                            
+                            
                             <br/>
                             <Typography className={classes.title}>Integrantes do Projeto</Typography>
                             {projeto.integrantesProjeto.map((integrantes) => {
-                                return <Typography component="p">{integrantes.nome}</Typography>
+                                return <div>      
+                                    
+                                <Tooltip title={integrantes.nome} >      
+                                    <Avatar src={"/api/pessoas/" + integrantes.id + "/foto?" + servicoLogin.getAuthorizationGet() } className={classes.avatar} >       
+                                    </Avatar>                          
+                                </Tooltip>                 
+                                <br/>    
+                                </div>
                             })}
                             <br/>
                             
-                            <Typography className={classes.title}>Solicitantes do Projeto</Typography>
+                            
                             
                             {solicitantes}
                                 
@@ -205,12 +247,13 @@ class ProjetoDetalhe extends React.Component {
                                 {projeto.descricao}
                             </Typography>
                             
-                            <br/><br/><br/>
-                            
-                            {participar}
+
                       
                             <br/><br/><br/>
+                            
+                            <img src={"/api/projetos/" + projeto.id + "/foto?" + servicoLogin.getAuthorizationGet() } className={classes.img} ></img>
      
+                            <br/><br/><br/>
                         </CardContent>
 
                         {/*<CardActions>*/}
