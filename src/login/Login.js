@@ -34,7 +34,7 @@ export default class Login extends Component {
 
     login() {
         this.setState({texto: ""});
-        
+
         servicoLogin.login(
             this.state.login.usuario,
             this.state.login.senha,
@@ -62,7 +62,7 @@ export default class Login extends Component {
                         <Paper style={{padding: "15px"}}>
 
                             <AppBar position="static" color="primary">
-                                <Toolbar>
+                                <Toolbar style={{backgroundColor: '#51B0FF', color: '#FFFFFF'}}>
                                     Login
                                 </Toolbar>
                             </AppBar>
@@ -100,7 +100,7 @@ export default class Login extends Component {
 
                                     <Typography color="error">{this.state.avisoLogin} <br/> </Typography></div>
                                 <br/>
-                                <Button type="submit" style={{width: "100%"}} raised color="primary">Confirmar</Button>
+                                <Button type="submit" style={{width: "100%", backgroundColor: '#51B0FF', color: '#FFFFFF'}} raised color="primary">Confirmar</Button>
                                 <br/><br/>
                                 <Button style={{width: "100%"}} raised color="accent">Cadastrar</Button>
                             </form>

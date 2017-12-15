@@ -16,6 +16,8 @@ import Select from "material-ui/es/Select/Select";
 import MenuItem from "material-ui/es/Menu/MenuItem";
 import Input from "material-ui/es/Input/Input";
 import InputLabel from "material-ui/es/Input/InputLabel";
+import ProjetoServico from "./ProjetoServico";
+import {Redirect} from "react-router-dom";
 
 
 const styles = theme => ({
@@ -61,8 +63,10 @@ class ProjetoItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            projeto: {},
-        }
+            sucesso: "",
+            projeto: this.props.projeto,
+        };
+        this.projetoServico = new ProjetoServico("/api/projetos");
     }
 
     componentWillReceiveProps(proximoEstado) {
@@ -79,15 +83,41 @@ class ProjetoItem extends React.Component {
     }
 
     confirmar() {
-        if (this.state.projeto.nome) {
-            if (this.state.projeto.resumo) {
-                if (this.state.projeto.descricao) {
-                    alert("Tudo ok");
+        const projeto = this.props.projeto;
+
+        if (projeto.nome) {
+            if (projeto.resumo) {
+                if (projeto.descricao) {
+                    if (projeto.id) {
+                        this.projetoServico.editar(projeto.id, projeto,
+                            (item) => {
+                                alert("Projeto alterado com sucesso!");
+                                this.setState({sucesso: <Redirect to="/meusProjetos"/>})
+                            },
+                            (erro) => {
+                                console.log("Erro!");
+                                console.log(erro);
+                            }
+                        );
+                    } else {
+                        this.setValor("coordenadorProjeto", this.props.usuario);
+                        this.setValor("dataInicio", "2017-12-14");
+                        this.projetoServico.inserir(projeto,
+                            (item) => {
+                                alert("Projeto cadastrado com sucesso!");
+                                this.setState({sucesso: <Redirect to="/projetos"/>})
+                            },
+                            (erro) => {
+                                console.log("Erro!");
+                                console.log(erro);
+                            }
+                        );
+                    }
                 } else {
-                    alert("Falta descricao");
+                    alert("Campo descricao é obrigatório!");
                 }
             } else {
-                alert("Falta resumo");
+                alert("Campo resumo é obrigatório!");
             }
         } else {
             alert("Preencha todos os campos!");
@@ -97,114 +127,96 @@ class ProjetoItem extends React.Component {
     render() {
         const {classes} = this.props;
 
-        return <div>
-            <div>
-                <Typography type="headline" component="h2">Novo projeto</Typography>
-                <br/>
-                <Card>
-                    <CardContent>
+        if (this.state.sucesso)
+            return this.state.sucesso;
+        else
+            return <div>
+                <div>
+                    <Typography type="headline" component="h2">Novo projeto</Typography>
+                    <br/>
+                    <Card>
+                        <CardContent>
 
-                        <form onSubmit={(event) => {
-                            event.preventDefault();
-                            this.confirmar()
-                        }}>
-                            {/* TODO:
-                             > select area interesse
-                             > setar coord. no envio
-                             */}
-
-                            {/*<Select*/}
-                                {/*value={this.state.projeto.area ? this.state.projeto.area : ""}*/}
-                                {/*onChange={(evento) => this.setValor("tipoVinculo", evento.target.value)}*/}
-                                {/*input={<Input id="tipoVinculo"/>}*/}
-                            {/*>*/}
-                                {/*<MenuItem value=""> </MenuItem>*/}
-                                {/*<MenuItem value={'aluno'}>Aluno</MenuItem>*/}
-                                {/*<MenuItem value={'professor'}>Professor</MenuItem>*/}
-                                {/*<MenuItem value={'servidorTecnico'}>Servidor Técnico</MenuItem>*/}
-                            {/*</Select>*/}
-
-
-                            <Typography className={classes.title}>Nome</Typography>
-                            <TextField
-                                value={this.state.projeto.nome}
-                                onChange={(e) => this.setValor("nome", e.target.value)}
-                                style={{width: "100%"}}
-                                type="text"
-                                margin="normal" required focused
-                                InputProps={{
-                                    disableUnderline: true,
-                                    classes: {
-                                        input: classes.textFieldInput,
-                                    },
-                                }}
-                            />
-                            <br/><br/>
-
-                            <Typography className={classes.title}>Resumo</Typography>
-                            <TextField
-                                value={this.state.projeto.resumo}
-                                onChange={(e) => this.setValor("resumo", e.target.value)}
-                                style={{width: "100%"}}
-                                type="text"
-                                margin="normal" required focused
-                                multiline={true}
-                                rows="5"
-                                InputProps={{
-                                    disableUnderline: true,
-                                    classes: {
-                                        input: classes.textFieldInput,
-                                    },
-                                }}
-                            />
-                            <br/><br/>
-
-                            <Typography className={classes.title}>Descrição</Typography>
-                            <TextField
-                                value={this.state.projeto.descricao}
-                                onChange={(e) => this.setValor("descricao", e.target.value)}
-                                style={{width: "100%"}}
-                                type="text"
-                                margin="normal" required focused
-                                multiline={true}
-                                rows="12"
-                                InputProps={{
-                                    disableUnderline: true,
-                                    classes: {
-                                        input: classes.textFieldInput,
-                                    },
-                                }}
-                            />
-                            <br/>
-
-                            <div style={{
-                                visibility: this.state.texto ? "" : "hidden",
-                                width: "100%",
-                                textAlign: "center"
+                            <form onSubmit={(event) => {
+                                event.preventDefault();
+                                this.confirmar()
                             }}>
 
-                                <Typography color="error">{this.state.texto} <br/> </Typography></div>
-                            <br/>
+                                <Typography className={classes.title}>Nome</Typography>
+                                <TextField
+                                    value={this.state.projeto.nome}
+                                    onChange={(e) => this.setValor("nome", e.target.value)}
+                                    style={{width: "100%"}}
+                                    type="text"
+                                    margin="normal" required focused
+                                    InputProps={{
+                                        disableUnderline: true,
+                                        classes: {
+                                            input: classes.textFieldInput,
+                                        },
+                                    }}
+                                />
+                                <br/><br/>
 
-                        </form>
+                                <Typography className={classes.title}>Resumo</Typography>
+                                <TextField
+                                    value={this.state.projeto.resumo}
+                                    onChange={(e) => this.setValor("resumo", e.target.value)}
+                                    style={{width: "100%"}}
+                                    type="text"
+                                    margin="normal" required focused
+                                    multiline={true}
+                                    rows="5"
+                                    InputProps={{
+                                        disableUnderline: true,
+                                        classes: {
+                                            input: classes.textFieldInput,
+                                        },
+                                    }}
+                                />
+                                <br/><br/>
 
-                    </CardContent>
-                    <CardActions>
-                        <Button onClick={() => {
-                            this.props.cancelar()
-                        }} style={{backgroundColor: '#51B0FF', color: '#FFFFFF'}}>
-                            Cancelar
-                        </Button>
-                        <Button onClick={() => {
-                            this.confirmar()
-                        }} style={{backgroundColor: '#51B0FF', color: '#FFFFFF'}}>
-                            Confirmar
-                        </Button>
-                    </CardActions>
-                </Card>
-                <br/>
-            </div>
-        </div>;
+                                <Typography className={classes.title}>Descrição</Typography>
+                                <TextField
+                                    value={this.state.projeto.descricao}
+                                    onChange={(e) => this.setValor("descricao", e.target.value)}
+                                    style={{width: "100%"}}
+                                    type="text"
+                                    margin="normal" required focused
+                                    multiline={true}
+                                    rows="12"
+                                    InputProps={{
+                                        disableUnderline: true,
+                                        classes: {
+                                            input: classes.textFieldInput,
+                                        },
+                                    }}
+                                />
+                                <br/>
+
+                                <div style={{
+                                    visibility: this.state.texto ? "" : "hidden",
+                                    width: "100%",
+                                    textAlign: "center"
+                                }}>
+
+                                    <Typography color="error">{this.state.texto} <br/> </Typography></div>
+                                <br/>
+
+                            </form>
+
+                        </CardContent>
+                        <CardActions>
+                            <Button onClick={() => {
+                                this.confirmar()
+                            }} style={{backgroundColor: '#51B0FF', color: '#FFFFFF'}}>
+                                Confirmar
+                            </Button>
+                        </CardActions>
+                    </Card>
+                    <br/>
+                </div>
+            </div>;
 
     }
 }

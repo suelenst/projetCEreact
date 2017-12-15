@@ -123,7 +123,11 @@ class App extends Component {
             logado: servicoLogin.logado(),
             mobileOpen: false,
             open: true,
-            projeto: {},
+            projeto: {
+                nome: "",
+                resumo: "",
+                descricao: "",
+            },
         };
     }
 
@@ -145,6 +149,7 @@ class App extends Component {
 
         let isAdmin = servicoLogin.logado().tipo === "administrador";
         const id = servicoLogin.logado().id;
+        const usuario = servicoLogin.logado();
         let drawer = null;
         let avatar = null;
 
@@ -233,7 +238,8 @@ class App extends Component {
 
         const avatarUser = (
             <Link to="/" className={classes.link}>
-                <Avatar src={"/api/pessoas/" + id + "/foto?" + servicoLogin.getAuthorizationGet() } className={classes.avatar}>                
+                <Avatar src={"/api/pessoas/" + id + "/foto?" + servicoLogin.getAuthorizationGet() }
+                        className={classes.avatar}>
 
 
                 </Avatar>
@@ -317,19 +323,33 @@ class App extends Component {
                             <Route exact path="/" component={Home}/>
                             <Route path="/area" component={AreaPagina}/>
                             <Route path="/pessoa" component={PessoaPagina}/>
+
                             <Route path="/projetos"
-                                   render={() => <ProjetoPagina id="" setProjeto={(projeto) => {
-                                       this.setProjeto(projeto)
-                                   }}/>}/>
+                                   render={() => <ProjetoPagina
+                                       id=""
+                                       setProjeto={(projeto) => {
+                                           this.setProjeto(projeto)
+                                       }}/>}/>
+
                             <Route path="/meusProjetos"
-                                   render={() => <ProjetoPagina id={"/coordenador/" + id} setProjeto={(projeto) => {
-                                       this.setProjeto(projeto)
-                                   }}/>}/>
+                                   render={() => <ProjetoPagina
+                                       id={"/coordenador/" + id}
+                                       setProjeto={(projeto) => {
+                                           this.setProjeto(projeto)
+                                       }}/>}/>
+
                             <Route path="/login" render={() => this.state.logado ? <Redirect to="/projetos"/>
                                 : <Login onLogin={() => this.setState({logado: true})}/>}/>
+
                             <Route path="/maisDetalhes"
-                                   render={() => <ProjetoDetalhe id={id} projeto={this.state.projeto}/>}/>
-                            <Route path="/novoProjeto" component={ProjetoItem}/>
+                                   render={() => <ProjetoDetalhe
+                                       id={id} projeto={this.state.projeto}
+                                       setProjeto={(projeto) => {
+                                           this.setProjeto(projeto)
+                                       }}/>}/>
+
+                            <Route path="/novoProjeto" render={() => <ProjetoItem id={id} usuario={usuario} projeto={this.state.projeto}/>}/>
+                            <Route path="/editarProjeto" render={() => <ProjetoItem projeto={this.state.projeto}/>}/>
                         </main>
                     </div>
                 </div>

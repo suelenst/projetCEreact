@@ -42,7 +42,7 @@ class ProjetoLista extends React.Component {
 
     render() {
         const {classes} = this.props;
-        
+
         function reformatDate(dateStr) {
             var dArr = dateStr.split("-");  // ex input "2010-01-18"
             return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0]; //ex out: "18/01/10"
@@ -57,9 +57,7 @@ class ProjetoLista extends React.Component {
                         <div>
                             <Card>
                                 <CardContent>
-                                    {projeto.area.map((area) => {
-                                        return <Typography className={classes.title}>{area.nome}</Typography>
-                                    })}
+                                    <Typography className={classes.title}>{projeto.area}</Typography>
                                     <Typography type="headline" component="h2">
                                         {projeto.nome}
                                     </Typography>
