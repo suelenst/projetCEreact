@@ -82,8 +82,18 @@ class ProjetoItem extends React.Component {
         );
     }
 
+    limparObjeto() {
+        this.setState({
+            projeto: {
+                nome: "",
+                resumo: "",
+                descricao: "",
+            }
+        })
+    }
+
     confirmar() {
-        const projeto = this.props.projeto;
+        let projeto = this.state.projeto;
 
         if (projeto.nome) {
             if (projeto.resumo) {
@@ -92,7 +102,7 @@ class ProjetoItem extends React.Component {
                         this.projetoServico.editar(projeto.id, projeto,
                             (item) => {
                                 alert("Projeto alterado com sucesso!");
-                                this.setState({sucesso: <Redirect to="/meusProjetos"/>})
+                                this.setState({sucesso: <Redirect to="/meusProjetos"/>});
                             },
                             (erro) => {
                                 console.log("Erro!");
@@ -105,6 +115,7 @@ class ProjetoItem extends React.Component {
                         this.projetoServico.inserir(projeto,
                             (item) => {
                                 alert("Projeto cadastrado com sucesso!");
+                                this.limparObjeto();
                                 this.setState({sucesso: <Redirect to="/projetos"/>})
                             },
                             (erro) => {

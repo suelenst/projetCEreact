@@ -109,7 +109,6 @@ class ProjetoDetalhe extends React.Component {
             return dArr[2] + "/" + dArr[1] + "/" + dArr[0]; //ex out: "18/01/10"
         }
 
-        // ja tem o id do usuario autenticado, falta comparar com os do projeto para saber se e integrante ou coordenador
         function pedidoPart(arr, idu) {
             for (var i = 0; i < arr.length; i++) {
                 if (arr[i].id === idu) {
@@ -161,6 +160,7 @@ class ProjetoDetalhe extends React.Component {
                                             <Button className={classes.button} onClick={(event) => {
                                                 event.preventDefault();
                                                 this.projetoServico.aceitarPart(projeto.id, solicitantes.id);
+                                                this.setState({sucesso: <Redirect to="/maisDetalhes"/>});
                                             }}>
                                                 Aceitar
                                             </Button>
@@ -170,6 +170,7 @@ class ProjetoDetalhe extends React.Component {
                                             <Button className={classes.button} onClick={(event) => {
                                                 event.preventDefault();
                                                 this.projetoServico.negarPart(projeto.id, solicitantes.id);
+                                                this.setState({sucesso: <Redirect to="/maisDetalhes"/>});
                                             }}>
                                                 Negar
                                             </Button>
