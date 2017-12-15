@@ -202,7 +202,7 @@ class ProjetoDetalhe extends React.Component {
                 <div>
                     <Card>
                         <CardContent>
-                            <Typography className={classes.tagAreas}>{projeto.area}</Typography>
+                            <Typography className={classes.tagAreas}>{projeto.area.nome}</Typography>
 
                             <br/>
                             <Typography type="headline" component="h2">

@@ -57,7 +57,7 @@ class ProjetoLista extends React.Component {
                         <div>
                             <Card>
                                 <CardContent>
-                                    <Typography className={classes.title}>{projeto.area}</Typography>
+                                    <Typography className={classes.title}>{projeto.area.nome}</Typography>
                                     <Typography type="headline" component="h2">
                                         {projeto.nome}
                                     </Typography>

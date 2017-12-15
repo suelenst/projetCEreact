@@ -128,6 +128,11 @@ class App extends Component {
                 resumo: "",
                 descricao: "",
             },
+            projetoVazio: {
+                nome: "",
+                resumo: "",
+                descricao: "",
+            },
         };
     }
 
@@ -348,7 +353,7 @@ class App extends Component {
                                            this.setProjeto(projeto)
                                        }}/>}/>
 
-                            <Route path="/novoProjeto" render={() => <ProjetoItem id={id} usuario={usuario} projeto={this.state.projeto}/>}/>
+                            <Route path="/novoProjeto" render={() => <ProjetoItem id={id} usuario={usuario} projeto={this.state.projetoVazio}/>}/>
                             <Route path="/editarProjeto" render={() => <ProjetoItem projeto={this.state.projeto}/>}/>
                         </main>
                     </div>
